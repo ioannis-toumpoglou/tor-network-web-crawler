@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:pro="http://www.liquibase.org/xml/ns/pro" 
+xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd">
+
+	<changeSet author="Toumpoglou Ioannis" id="1">
+		<createTable tableName="tor_network_url">
+			<column name="id" type="int(10)">
+				<constraints primaryKey="true" primaryKeyName="tor_network_url_id_pk"/>
+			</column>
+			<column name="url" type="varchar(250)"></column>
+			<column name="status" type="varchar(50)"></column>
+		</createTable>
+		<addAutoIncrement tableName="tor_network_url" columnName="id" columnDataType="int(10)" startWith="1" incrementBy="1"/>		
+	</changeSet>
+	
+</databaseChangeLog>
