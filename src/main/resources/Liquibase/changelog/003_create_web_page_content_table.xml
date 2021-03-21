@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:pro="http://www.liquibase.org/xml/ns/pro" 
+xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
+http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd">
+
+	<changeSet author="Toumpoglou Ioannis" id="3">
+		<createTable tableName="web_page_content">
+			<column name="id" type="int(10)">
+				<constraints primaryKey="true" primaryKeyName="web_page_content_id_pk"/>
+			</column>
+			<column name="url" type="varchar(255)"></column>
+			<column name="threat_type_id" type="int(10)"></column>
+			<column name="hmtl_code" type="varchar(8000)"></column>
+			<column name="text" type="varchar(8000)"></column>
+		</createTable>
+		<addAutoIncrement tableName="web_page_content" columnName="id" columnDataType="int(10)" startWith="1" incrementBy="1"/>
+		<addForeignKeyConstraint baseTableName="web_page_content" baseColumnNames="threat_type_id" constraintName="page_threat_id_fk" referencedTableName="threat_type" referencedColumnNames="id"/>	
+	</changeSet>
+	
+</databaseChangeLog>

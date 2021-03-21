@@ -6,8 +6,14 @@ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd
 http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd">
 
-	<include file="Liquibase/changelog/001_create_tor_urls_table.xml"/>
-	<include file="Liquibase/changelog/002_create_threat_type_table.xml"/>
-	<include file="Liquibase/changelog/003_create_web_page_content_table.xml"/>
+	<changeSet author="Toumpoglou Ioannis" id="2">
+		<createTable tableName="threat_type">
+			<column name="id" type="int(10)">
+				<constraints primaryKey="true" primaryKeyName="threat_type_id_pk"/>
+			</column>
+			<column name="threat_type" type="varchar(255)"></column>
+		</createTable>
+		<addAutoIncrement tableName="threat_type" columnName="id" columnDataType="int(10)" startWith="1" incrementBy="1"/>
+	</changeSet>
 	
 </databaseChangeLog>
