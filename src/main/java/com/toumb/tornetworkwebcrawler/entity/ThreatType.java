@@ -20,14 +20,14 @@ public class ThreatType {
 	@Column(name="id")
 	private int id;
 	
-	@Column(name="threat_type")
-	private String threatΤype;
+	@Column(name="type_name")
+	private String typeName;
 	
 	public ThreatType() {}
 
-	public ThreatType(int id, String threatType) {
+	public ThreatType(int id, String typeName) {
 		this.id = id;
-		this.threatΤype = threatType;
+		this.typeName = typeName;
 	}
 
 }

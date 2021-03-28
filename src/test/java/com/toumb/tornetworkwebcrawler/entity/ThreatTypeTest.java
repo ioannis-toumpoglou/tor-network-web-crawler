@@ -23,13 +23,13 @@ public class ThreatTypeTest {
 	@Test
 	void getThreatTypeTest() {
 		ThreatType threat = new ThreatType();
-		threat.setThreatΤype("Malware");
-		String type = threat.getThreatΤype();
+		threat.setTypeName("Malware");
+		String type = threat.getTypeName();
 		assertEquals("Malware", type);
 		assertNotEquals("Spam", type);
 		
 		ThreatType secondThreat = new ThreatType(2, "Spam");
-		String secondType = secondThreat.getThreatΤype();
+		String secondType = secondThreat.getTypeName();
 		assertEquals("Spam", secondType);
 		assertNotEquals("Malware", secondType);
 	}

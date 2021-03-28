@@ -8,6 +8,6 @@ import com.toumb.tornetworkwebcrawler.entity.ThreatType;
 
 public interface ThreatTypeRepository extends JpaRepository<ThreatType, Integer> {
 	
-	public List<ThreatType> findAllByOrderByThreatTypeAsc();
+	public List<ThreatType> findAllByOrderByTypeNameAsc();
 	
 }
