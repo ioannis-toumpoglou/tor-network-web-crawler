@@ -12,6 +12,7 @@ http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibas
 				<constraints primaryKey="true" primaryKeyName="threat_type_id_pk"/>
 			</column>
 			<column name="type_name" type="varchar(255)"></column>
+			<column name="description" type="varchar(255)"></column>
 		</createTable>
 		<addAutoIncrement tableName="threat_type" columnName="id" columnDataType="int(10)" startWith="1" incrementBy="1"/>
 	</changeSet>

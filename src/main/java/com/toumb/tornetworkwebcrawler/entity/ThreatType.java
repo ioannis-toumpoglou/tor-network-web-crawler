@@ -23,11 +23,15 @@ public class ThreatType {
 	@Column(name="type_name")
 	private String typeName;
 	
+	@Column(name="description")
+	private String description;
+	
 	public ThreatType() {}
 
-	public ThreatType(int id, String typeName) {
+	public ThreatType(int id, String typeName, String description) {
 		this.id = id;
 		this.typeName = typeName;
+		this.description = description;
 	}
 
 }
