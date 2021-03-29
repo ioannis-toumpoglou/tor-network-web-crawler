@@ -29,11 +29,11 @@ public class TorNetworkUrlServiceImpl implements TorNetworkUrlService {
 		Optional<TorNetworkUrl> result = torNetworkUrlRepository.findById(id);
 		
 		TorNetworkUrl torNetworkUrl = null;
-		// Check if the url exists
+		// Check if the URL exists
 		if (result.isPresent()) {
 			torNetworkUrl = result.get();
 		} else {
-			throw new RuntimeException("Unable to find the url id - " + id);
+			throw new RuntimeException("Unable to find the URL id - " + id);
 		}
 		
 		return torNetworkUrl;
