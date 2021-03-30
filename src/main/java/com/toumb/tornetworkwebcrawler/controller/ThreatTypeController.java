@@ -21,8 +21,8 @@ public class ThreatTypeController {
 	
 	private ThreatTypeService threatTypeService;
 	
-	public ThreatTypeController(ThreatTypeService thethreatTypeService) {
-		this.threatTypeService = thethreatTypeService;
+	public ThreatTypeController(ThreatTypeService theThreatTypeService) {
+		this.threatTypeService = theThreatTypeService;
 	}
 
 	@GetMapping("/list")
@@ -30,7 +30,7 @@ public class ThreatTypeController {
 		// Get the Threat Type list from the Service
 		List<ThreatType> threatTypes = threatTypeService.findAll();
 		
-		// Add the URL list to the model
+		// Add the Threat Type list to the model
 		model.addAttribute("threatTypes", threatTypes);
 		
 		return "threat_types/list-threat-types";
