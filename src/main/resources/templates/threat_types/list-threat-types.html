@@ -25,15 +25,15 @@
 	<table class="table table-bordered table-striped">
 		<thead class="thead-dark">
 			<tr>
-				<th>Threat Type</th>
+				<th style="width:10em;">Threat Type</th>
 				<th>Description</th>
 				<th style="width:10em;">Action</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr th:each="tempThreatType : ${threatTypes}" style="text-align:center; vertical-align:middle;">
-				<td th:text="${tempThreatType.typeName}"/>
-				<td th:text="${tempThreatType.description}" style="width:400px; height:180px; text-align:justify; "/>
+				<td th:text="${tempThreatType.typeName}" style="font-weight:bold;"/>
+				<td th:text="${tempThreatType.description}" style="width:400px; height:140px; text-align:justify;"/>
 				<td>
 					<a th:href="@{/threat-types/showUpdateForm(threatTypeId=${tempThreatType.id})}" class="btn btn-info btn-sm">Update</a>
 					<a th:href="@{/threat-types/delete(threatTypeId=${tempThreatType.id})}" class="btn btn-danger btn-sm" onclick="if (!(confirm('Are you sure you want to delete this threat type?'))) return false">Delete</a>

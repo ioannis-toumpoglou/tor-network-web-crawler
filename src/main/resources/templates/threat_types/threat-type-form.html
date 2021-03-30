@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link type="text/css" rel="stylesheet" href="../../css/app.css">
+	<title>Save Threat Type</title>
+</head>
+
+<body>
+
+	<div class="container">
+		<br>
+		<h3>Threat Types</h3>
+		<hr>
+		
+		<p class="h4 mb-4">Save Threat Type</p>
+		
+		<form action="/" th:action="@{/threat-types/save}"
+						 th:object="${threatType}" method="POST">
+		
+			<input type="hidden" th:field="*{id}"/>
+			<input type="text" th:field="*{typeName}" class="form-control mb-4 col-4" placeholder="Threat Type Name" required>
+			<textarea rows="7" th:field="*{description}" class="form-control mb-4 col-4" th:placeholder="Description" style="height:350px;" required></textarea>
+			<button type="submit" class="btn btn-info col-2">Save</button>
+		
+		</form>
+		
+		<hr>
+		<a th:href="@{/threat-types/list}">Back to Threat Type List</a>
+	
+	</div>
+
+</body>
+
+</html>
