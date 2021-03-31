@@ -16,7 +16,7 @@ import com.toumb.tornetworkwebcrawler.entity.TorNetworkUrl;
 import com.toumb.tornetworkwebcrawler.service.TorNetworkUrlService;
 
 @Controller
-@RequestMapping("/tor-network-urls")
+@RequestMapping("/tor-urls")
 public class TorNetworkUrlController {
 	
 	private TorNetworkUrlService torNetworkUrlService;
@@ -27,49 +27,49 @@ public class TorNetworkUrlController {
 
 	@GetMapping("/list")
 	public String listTorNetWorkUrls(Model model) {
-		// Get the Tor Network URL list from the Service
-		List<TorNetworkUrl> torNetworkUrls = torNetworkUrlService.findAll();
+		// Get the Tor URL list from the Service
+		List<TorNetworkUrl> torUrls = torNetworkUrlService.findAll();
 		
 		// Add the Tor Network URL list to the model
-		model.addAttribute("torNetworkUrls", torNetworkUrls);
+		model.addAttribute("torUrls", torUrls);
 		
-		return "tor_network_urls/list-tor-network-urls";
+		return "tor_urls/list-tor-urls";
 	}
 	
 	@GetMapping("/showAddForm")
 	public String showAddForm(Model model) {
 		// Create model attribute to bind form data
-		TorNetworkUrl torNetworkUrl = new TorNetworkUrl();
+		TorNetworkUrl torUrl = new TorNetworkUrl();
 		
-		model.addAttribute("torNetworkUrl", torNetworkUrl);
+		model.addAttribute("torUrl", torUrl);
 		
-		return "tor_network_urls/tor-network-url-form";
+		return "tor_urls/tor-url-form";
 	}
 	
 	@PostMapping("/save")
-	public String saveThreatType(@ModelAttribute("torNetworkUrl") TorNetworkUrl torNetworkUrl, BindingResult result) throws IOException {
-		// Save the Tor Network URL using the service
-		torNetworkUrlService.save(torNetworkUrl);
+	public String saveTorUrl(@ModelAttribute("torUrl") TorNetworkUrl torUrl, BindingResult result) throws IOException {
+		// Save the Tor URL using the service
+		torNetworkUrlService.save(torUrl);
 		
-		return "redirect:/tor-network-urls/list";
+		return "redirect:/tor-urls/list";
 	}
 	
 	@GetMapping("/showUpdateForm")
-	public String showUpdateForm(@RequestParam("torNetworkUrlId") int id, Model model) {
-		// Get the Tor Network URL from the service
-		TorNetworkUrl torNetworkUrl = torNetworkUrlService.findById(id);
-		// Set the Tor Network URL as a model attribute to pre-populate the form
-		model.addAttribute("torNetworkUrl", torNetworkUrl);
+	public String showUpdateForm(@RequestParam("torUrlId") int id, Model model) {
+		// Get the Tor URL from the service
+		TorNetworkUrl torUrl = torNetworkUrlService.findById(id);
+		// Set the Tor URL as a model attribute to pre-populate the form
+		model.addAttribute("torUrl", torUrl);
 		// Send to the form		
-		return "tor_network_urls/tor-network-url-form";
+		return "tor_urls/tor-url-form";
 	}
 	
 	@GetMapping("/delete")
-	public String deleteTorUrl(@RequestParam("torNetworkUrlId") int id) {
-		// Delete the Tor Network URL record
+	public String deleteTorUrl(@RequestParam("torUrlId") int id) {
+		// Delete the Tor URL record
 		torNetworkUrlService.deleteById(id);
 		
-		return "redirect:/tor-network-urls/list";
+		return "redirect:/tor-urls/list";
 	}
 	
 }
