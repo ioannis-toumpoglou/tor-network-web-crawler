@@ -1,3 +1,84 @@
+h3 {
+	font-weight:bold;
+}
+
 input[type=number] {
 	-moz-appearance: textfield;
+}
+
+.add-button {
+	width: 10em;
+}
+
+#url-header {
+	width:40em;
+	text-align:center;
+}
+
+#url-status-header {
+	text-align:center;
+}
+
+#url-action-header {
+	width:15em;
+	text-align:center;
+}
+
+#url-row {
+	text-align:center; 
+	vertical-align:middle;
+}
+
+#url-status-cell {
+	width:200px;
+}
+
+#url-action-cell {
+	width:15em;
+}
+
+#threat-type-header {
+	width:10em;
+	text-align:center;
+}
+
+#threat-type-description-header {
+	width:10em;
+	text-align:center;
+}
+
+#threat-type-action-header {
+	width:10em;
+	text-align:center;
+}
+
+#threat-type-row {
+	text-align:center; 
+	vertical-align:middle;
+	height:120px;
+}
+
+#threat-type-name {
+	font-weight:bold;
+}
+
+#threat-type-description {
+	width:400px; 
+	text-align:justify;
+}
+
+.green-dot {
+  height: 25px;
+  width: 25px;
+  background-color: #73d216;
+  border-radius: 100%;
+  display: inline-block;
+}
+
+.red-dot {
+  height: 25px;
+  width: 25px;
+  background-color: #ef2929;
+  border-radius: 50%;
+  display: inline-block;
 }
