@@ -14,19 +14,16 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.toumb.tornetworkwebcrawler.entity.TorNetworkUrl;
 import com.toumb.tornetworkwebcrawler.service.TorNetworkUrlService;
 
 @Controller
-@RequestMapping("/tor-urls")
+@RequestMapping("/tor-web-crawler")
 public class WebCrawlerController {
 	
 	private TorNetworkUrlService torNetworkUrlService;
@@ -34,44 +31,25 @@ public class WebCrawlerController {
 	public WebCrawlerController(TorNetworkUrlService theTorNetworkUrlService) {
 		this.torNetworkUrlService = theTorNetworkUrlService;
 	}
-
-	@GetMapping("/list")
-	public String listTorUrls(Model model) {
-		// Get the Tor URL list from the Service
-		List<TorNetworkUrl> torUrls = torNetworkUrlService.findAll();
-		
-		// Add the URL list to the model
-		model.addAttribute("torUrls", torUrls);
-		
-		return "tor_urls/list-tor-urls";
-	}
 	
-	@PostMapping("/save")
-	public String saveTorUrl(@ModelAttribute("torUrl") TorNetworkUrl torNetworkUrl, BindingResult result) throws IOException {
-		String urlTarget = torNetworkUrl.getUrl();
+	@PostMapping("/crawl-url")
+	public String crawlUrl(@ModelAttribute("torUrl") TorNetworkUrl torUrl, BindingResult result) throws IOException {
+		String urlTarget = torUrl.getUrl();
 		HttpURLConnection conn = establishConnectionToWebPage(urlTarget);
 		getLocalIpAddress();
 		getIpAddressOnWeb();
-		torNetworkUrl.setUrl(urlTarget);
-		torNetworkUrl.setStatus(webPageStatus(conn));
-		torNetworkUrlService.save(torNetworkUrl);
+		torUrl.setUrl(urlTarget);
+		torUrl.setStatus(webPageStatus(conn));
+		torNetworkUrlService.save(torUrl);
 		
 		List<String> hrefLinks = retrieveHrefLinks(urlTarget);
 		
 		for (String hrefLink : hrefLinks) {
 			conn = establishConnectionToWebPage(hrefLink);
-			torNetworkUrl.setUrl(hrefLink);
-			torNetworkUrl.setStatus(webPageStatus(conn));
-			torNetworkUrlService.save(torNetworkUrl);
+			torUrl.setUrl(hrefLink);
+			torUrl.setStatus(webPageStatus(conn));
+			torNetworkUrlService.save(torUrl);
 		}
-		
-		return "redirect:/tor-urls/list";
-	}
-	
-	@GetMapping("/delete")
-	public String deleteTorUrl(@RequestParam("torUrlId") int id) {
-		// Delete the Tor URL record
-		torNetworkUrlService.deleteById(id);
 		
 		return "redirect:/tor-urls/list";
 	}
