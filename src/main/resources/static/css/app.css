@@ -72,6 +72,7 @@ input[type=number] {
   width: 25px;
   background-color: #73d216;
   border-radius: 100%;
+  border: 2px solid #4e9a06;
   display: inline-block;
 }
 
@@ -80,5 +81,6 @@ input[type=number] {
   width: 25px;
   background-color: #ef2929;
   border-radius: 50%;
+  border: 2px solid #cc0000;
   display: inline-block;
 }

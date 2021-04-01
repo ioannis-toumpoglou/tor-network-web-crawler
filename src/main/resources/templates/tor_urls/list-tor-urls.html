@@ -42,17 +42,16 @@
 	<table class="table table-bordered table-striped">
 		<thead class="thead-dark">
 			<tr>
-				<th></th>
 				<th id="url-header">Tor Network URL</th>
-				<th id="url-status-header">Status</th>
+				<th id="url-status-header" colspan="2">Status</th>
 				<th id="url-action-header">Action</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr id="url-row" th:each="tempTorUrl : ${torUrls}">
-				<td><span th:classappend="${(tempTorUrl.status=='Alive' ? 'green-dot' : 'red-dot')}"></span></td>
 				<td th:text="${tempTorUrl.url}"/>
 				<td id="url-status-cell" th:text="${tempTorUrl.status}"/>
+				<td><span th:classappend="${(tempTorUrl.status=='Alive' ? 'green-dot' : 'red-dot')}"></span></td>
 				<td id="url-action-cell">
 					<a th:href="@{/tor-urls/showUpdateForm(torUrlId=${tempTorUrl.id})}" class="btn btn-info btn-sm">Update</a>
 					<a th:href="@{/tor-urls/delete(torUrlId=${tempTorUrl.id})}" class="btn btn-danger btn-sm" onclick="if (!(confirm('Are you sure you want to delete this URL?'))) return false">Delete</a>
