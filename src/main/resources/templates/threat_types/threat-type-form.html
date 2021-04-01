@@ -9,7 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<link type="text/css" rel="stylesheet" href="../../css/app.css">
-	<title>Save Threat Type</title>
+	<title th:text="${title}"></title>
 </head>
 
 <body>
@@ -35,7 +35,7 @@
 		<h3>Threat Types</h3>
 		<hr>
 		
-		<p class="h4 mb-4">Save Threat Type</p>
+		<p class="h4 mb-4" th:text="${title}"></p>
 		
 		<form action="/" th:action="@{/threat-types/save}"
 						 th:object="${threatType}" method="POST">

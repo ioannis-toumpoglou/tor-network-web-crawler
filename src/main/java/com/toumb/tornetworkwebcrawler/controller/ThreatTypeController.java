@@ -42,6 +42,7 @@ public class ThreatTypeController {
 		ThreatType threatType = new ThreatType();
 		
 		model.addAttribute("threatType", threatType);
+		model.addAttribute("title", "Add Threat Type");
 		
 		return "threat_types/threat-type-form";
 	}
@@ -60,6 +61,7 @@ public class ThreatTypeController {
 		ThreatType threatType = threatTypeService.findById(id);
 		// Set Threat Type as a model attribute to pre-populate the form
 		model.addAttribute("threatType", threatType);
+		model.addAttribute("title", "Update Threat Type");
 		// Send to the form		
 		return "threat_types/threat-type-form";
 	}

@@ -42,6 +42,7 @@ public class TorNetworkUrlController {
 		TorNetworkUrl torUrl = new TorNetworkUrl();
 		
 		model.addAttribute("torUrl", torUrl);
+		model.addAttribute("title", "Add Tor URL");
 		
 		return "tor_urls/tor-url-form";
 	}
@@ -60,6 +61,7 @@ public class TorNetworkUrlController {
 		TorNetworkUrl torUrl = torNetworkUrlService.findById(id);
 		// Set the Tor URL as a model attribute to pre-populate the form
 		model.addAttribute("torUrl", torUrl);
+		model.addAttribute("title", "Update Tor URL");
 		// Send to the form		
 		return "tor_urls/tor-url-form";
 	}
