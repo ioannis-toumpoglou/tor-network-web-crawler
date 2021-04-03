@@ -9,11 +9,11 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<link type="text/css" rel="stylesheet" href="../../css/app.css">
-	<title>Threat Types</title>
+	<title th:text="${title}"></title>
 </head>
 
 <body>
-
+	
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 	<img src="../../images/tor-logo.png"/>
 	  <div class="container-fluid">
@@ -31,36 +31,28 @@
 	</div>
 	</nav>
 
-<div class="container">
-	<br>
-	<h3>Threat Types</h3>
-	<hr>
+	<div class="container">
+		<br>
+		<h3>Web Page Content</h3>
+		<hr>
+		
+		<p class="h4 mb-4" th:text="${title}"></p>
+		
+		<form action="/" th:action="@{/web-page-content/save}"
+						 th:object="${webPageContent}" method="POST">
+		
+			<input type="hidden" th:field="*{id}"/>
+			<input type="text" th:field="*{url}" class="form-control mb-4 col-4" placeholder="Tor URL" required>
+			<input type="text" th:field="*{threatType}" class="form-control mb-4 col-4" placeholder="Threat Type" required>
+			<textarea rows="7" th:field="*{text}" class="form-control mb-4 col-4" th:placeholder="Text" style="height:350px;" required></textarea>
+			<button type="submit" class="btn btn-info col-2">Save</button>
+			<a href="/web-page-content/list" class="btn btn-info col-2">Cancel</a>
+		
+		</form>
+		
+		<hr>
 	
-	<a th:href="@{/threat-types/showAddForm}" class="btn btn-primary btn-sm mb-3 add-button">
-		Add Threat Type
-	</a>
-	
-	<table class="table table-bordered table-striped">
-		<thead class="thead-dark">
-			<tr>
-				<th id="threat-type-header">Threat Type</th>
-				<th id="threat-type-description-header">Description</th>
-				<th id="threat-type-action-header">Action</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr id="threat-type-row" th:each="tempThreatType : ${threatTypes}">
-				<td id="threat-type-name" th:text="${tempThreatType.typeName}"/>
-				<td id="threat-type-description" th:text="${tempThreatType.description}"/>
-				<td>
-					<a th:href="@{/threat-types/showUpdateForm(threatTypeId=${tempThreatType.id})}" class="btn btn-info btn-sm">Update</a>
-					<a th:href="@{/threat-types/delete(threatTypeId=${tempThreatType.id})}" class="btn btn-danger btn-sm" onclick="if (!(confirm('Are you sure you want to delete this threat type?'))) return false">Delete</a>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-
-</div>
+	</div>
 
 </body>
 
