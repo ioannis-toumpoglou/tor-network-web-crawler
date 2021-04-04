@@ -1,5 +1,5 @@
 h3 {
-	font-weight:bold;
+	font-weight: bold;
 }
 
 input[type=number] {
@@ -11,60 +11,100 @@ input[type=number] {
 }
 
 #url-header {
-	width:40em;
-	text-align:center;
+	width: 40em;
+	text-align: center;
 }
 
 #url-status-header {
-	text-align:center;
+	text-align: center;
 }
 
 #url-action-header {
-	width:15em;
-	text-align:center;
+	width: 15em;
+	text-align: center;
 }
 
 #url-row {
-	text-align:center; 
-	vertical-align:middle;
+	text-align: center; 
+	vertical-align: middle;
 }
 
 #url-status-cell {
-	width:200px;
+	width: 200px;
 }
 
 #url-action-cell {
-	width:15em;
+	width: 15em;
 }
 
 #threat-type-header {
-	width:10em;
-	text-align:center;
+	width: 10em;
+	text-align: center;
 }
 
 #threat-type-description-header {
-	width:10em;
-	text-align:center;
+	width: 10em;
+	text-align: center;
 }
 
 #threat-type-action-header {
-	width:10em;
-	text-align:center;
+	width: 10em;
+	text-align: center;
 }
 
 #threat-type-row {
-	text-align:center; 
-	vertical-align:middle;
-	height:120px;
+	text-align: center; 
+	vertical-align: middle;
+	height: 120px;
 }
 
 #threat-type-name {
-	font-weight:bold;
+	font-weight: bold;
 }
 
 #threat-type-description {
-	width:400px; 
-	text-align:justify;
+	width: 400px; 
+	text-align: justify;
+}
+
+#web-page-content-header {
+	width: 40em;
+	text-align: center;
+}
+
+#web-page-content-threat-header {
+	width: 25em;
+	text-align: center;
+}
+
+#web-page-content-action-header {
+	width: 25em;
+	text-align: center;
+}
+
+#web-page-content-row {
+	text-align: center; 
+	vertical-align: middle;
+}
+
+#web-page-content-url {
+	width: 25em;
+}
+
+#web-page-content-threat {
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#web-page-content-text {
+  width: 30em;
+  overflow: hidden;
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .green-dot {
@@ -73,6 +113,15 @@ input[type=number] {
   background-color: #73d216;
   border-radius: 100%;
   border: 2px solid #4e9a06;
+  display: inline-block;
+}
+
+.yellow-dot {
+  height: 25px;
+  width: 25px;
+  background-color: #ffff00;
+  border-radius: 50%;
+  border: 2px solid #ff8000;
   display: inline-block;
 }
 
@@ -86,6 +135,6 @@ input[type=number] {
 }
 
 img {
-    max-width:100%;
-    height:50px;
+    max-width: 100%;
+    height: 50px;
 }
