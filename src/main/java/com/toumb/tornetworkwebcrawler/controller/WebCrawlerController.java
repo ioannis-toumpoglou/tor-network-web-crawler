@@ -20,21 +20,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.toumb.tornetworkwebcrawler.entity.TorNetworkUrl;
+import com.toumb.tornetworkwebcrawler.entity.WebPageContent;
 import com.toumb.tornetworkwebcrawler.service.TorNetworkUrlService;
+import com.toumb.tornetworkwebcrawler.service.WebPageContentService;
 
 @Controller
 @RequestMapping("/tor-web-crawler")
 public class WebCrawlerController {
 	
 	private TorNetworkUrlService torNetworkUrlService;
+	private WebPageContentService webPageContentService;
 	
-	public WebCrawlerController(TorNetworkUrlService theTorNetworkUrlService) {
+	public WebCrawlerController(TorNetworkUrlService theTorNetworkUrlService, WebPageContentService theWebPageContentService) {
 		this.torNetworkUrlService = theTorNetworkUrlService;
+		this.webPageContentService = theWebPageContentService;
 	}
 	
 	@PostMapping("/crawl-url")
 	public String crawlUrl(@ModelAttribute("torUrl") TorNetworkUrl torUrl, BindingResult result) throws IOException {
-		String urlTarget = torUrl.getUrl();
+		String urlTarget = getFullUrl(torUrl.getUrl());
 		HttpURLConnection conn = establishConnectionToWebPage(urlTarget);
 		getLocalIpAddress();
 		getIpAddressOnWeb();
@@ -42,31 +46,46 @@ public class WebCrawlerController {
 		torUrl.setStatus(webPageStatus(conn));
 		torNetworkUrlService.save(torUrl);
 		
-		List<String> hrefLinks = retrieveHrefLinks(urlTarget);
+		WebPageContent webPageContent = new WebPageContent();
+		webPageContent.setUrl(urlTarget);
+		webPageContent.setHtmlCode(retrieveHtmlSourceCode(conn, urlTarget));
+		webPageContent.setText(retrieveWebPageText(urlTarget));
+		webPageContentService.save(webPageContent);
 		
-		for (String hrefLink : hrefLinks) {
-			conn = establishConnectionToWebPage(hrefLink);
-			torUrl.setUrl(hrefLink);
-			torUrl.setStatus(webPageStatus(conn));
-			torNetworkUrlService.save(torUrl);
-		}
+//		List<String> hrefLinks = retrieveHrefLinks(urlTarget);
+//		
+//		for (String hrefLink : hrefLinks) {
+//			conn = establishConnectionToWebPage(hrefLink);
+//			torUrl.setUrl(hrefLink);
+//			torUrl.setStatus(webPageStatus(conn));
+//			torNetworkUrlService.save(torUrl);
+//		}
 		
 		return "redirect:/tor-urls/list";
+	}
+	
+	public String getFullUrl(String urlTarget) throws IOException {
+		if (!urlTarget.contains("https") && !urlTarget.contains("www")) {
+			urlTarget = "https://www." + urlTarget;
+		} else if (!urlTarget.contains("https") && urlTarget.contains("www")) {
+			urlTarget = "https://" + urlTarget;
+		} else if (urlTarget.contains("http") && !urlTarget.contains("www")) {
+			int index = urlTarget.indexOf('/') + 1;
+			String urlTargetSub = urlTarget.substring(index + 1);
+			urlTarget = "https://www." + urlTargetSub;
+		}
+		
+        return urlTarget;
 	}
 	
 	public HttpURLConnection establishConnectionToWebPage(String urlTarget) throws IOException {
 		URL url;
 		HttpURLConnection conn;
 		
-        try {
-        	url = new URL(urlTarget);
-	        conn = (HttpURLConnection) url.openConnection();
-        	url.getProtocol();
-        } catch (Exception e) {
-        	urlTarget = "https://" + urlTarget;
-        	url = new URL(urlTarget);
-	        conn = (HttpURLConnection) url.openConnection();
-        }
+        url = new URL(getFullUrl(urlTarget));
+	    conn = (HttpURLConnection) url.openConnection();
+        url.getProtocol();
+        	
         // Print URL information while retrieving the data
         System.out.println();
         System.out.println("protocol = " + url.getProtocol());
@@ -116,11 +135,12 @@ public class WebCrawlerController {
 	
 	public String retrieveWebPageText(String urlTarget) throws IOException {
 		Document doc = Jsoup.connect(urlTarget).get();	// Get the webpage
-		Elements paragraphs = doc.select("p");	// Get the HTML paragraph elements
+		Elements paragraphs = doc.select("div");	// Get the HTML div elements
 		String webPageText = "";
 		
 		for (Element paragraph : paragraphs) {
-			String text = paragraph.text() + "\n\n";
+			String text = paragraph.text().trim() + "\n\n";
+			System.out.println(text);
 			webPageText += text;
 		}
 		
@@ -149,8 +169,10 @@ public class WebCrawlerController {
 	public String webPageStatus(HttpURLConnection conn) throws IOException {
 		if (conn.getResponseCode() == 200) {
 			return "Alive";
+		} else if (conn.getResponseCode() == 500) {
+			return "Offline";
 		}
-		return "Offline";
+		return "Access Denied";
 	}
 	
 }
