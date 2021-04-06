@@ -18,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.toumb.tornetworkwebcrawler.entity.TorNetworkUrl;
 import com.toumb.tornetworkwebcrawler.entity.WebPageContent;
@@ -37,8 +38,20 @@ public class WebCrawlerController {
 	}
 	
 	@PostMapping("/crawl-url")
-	public String crawlUrl(@ModelAttribute("torUrl") TorNetworkUrl torUrl, BindingResult result) throws IOException {
+	public String crawlUrl(@ModelAttribute("torUrl") TorNetworkUrl torUrl, BindingResult result, RedirectAttributes redirectAttributes) throws IOException {
+		boolean isDuplicate = false;
 		String urlTarget = getFullUrl(torUrl.getUrl());
+		List<TorNetworkUrl> torUrls = torNetworkUrlService.findAll();
+		List<String> urlList = new ArrayList<>();
+		
+		torUrls.forEach(item -> urlList.add(item.getUrl()));
+		
+		if (urlList.contains(urlTarget)) {
+			isDuplicate = true; 
+			redirectAttributes.addFlashAttribute("isDuplicate", isDuplicate);
+			return "redirect:/tor-urls/list";
+		}
+
 		HttpURLConnection conn = establishConnectionToWebPage(urlTarget);
 		getLocalIpAddress();
 		getIpAddressOnWeb();
@@ -67,7 +80,11 @@ public class WebCrawlerController {
 	public String getFullUrl(String urlTarget) throws IOException {
 		if (!urlTarget.contains("https") && !urlTarget.contains("www")) {
 			urlTarget = "https://www." + urlTarget;
-		} else if (!urlTarget.contains("https") && urlTarget.contains("www")) {
+		} else if (urlTarget.contains("http") && urlTarget.contains("www")) {
+			int index = urlTarget.indexOf('/') + 1;
+			String urlTargetSub = urlTarget.substring(index + 1);
+			urlTarget = "https://" + urlTargetSub;
+		} else if (!urlTarget.contains("http") && urlTarget.contains("www")) {
 			urlTarget = "https://" + urlTarget;
 		} else if (urlTarget.contains("http") && !urlTarget.contains("www")) {
 			int index = urlTarget.indexOf('/') + 1;
@@ -140,7 +157,6 @@ public class WebCrawlerController {
 		
 		for (Element paragraph : paragraphs) {
 			String text = paragraph.text().trim() + "\n\n";
-			System.out.println(text);
 			webPageText += text;
 		}
 		

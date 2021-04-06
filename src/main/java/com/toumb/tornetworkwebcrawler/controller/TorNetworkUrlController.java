@@ -51,7 +51,7 @@ public class TorNetworkUrlController {
 	public String saveTorUrl(@ModelAttribute("torUrl") TorNetworkUrl torUrl, BindingResult result) throws IOException {
 		// Save the Tor URL using the service
 		torNetworkUrlService.save(torUrl);
-		
+
 		return "redirect:/tor-urls/list";
 	}
 	
