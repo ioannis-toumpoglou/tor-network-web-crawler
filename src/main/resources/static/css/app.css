@@ -6,12 +6,25 @@ input[type=number] {
 	-moz-appearance: textfield;
 }
 
+#search-form {
+	width: 270px;
+}
+
+#crawl-form {
+	width: 270px;
+}
+
 .add-button {
 	width: 13em;
 }
 
+#url-container {
+	margin: 0em 20em;
+	max-width: 500em;
+}
+
 #url-header {
-	width: 40em;
+	width: 50em;
 	text-align: center;
 }
 
@@ -20,7 +33,7 @@ input[type=number] {
 }
 
 #url-action-header {
-	width: 15em;
+	width: 10em;
 	text-align: center;
 }
 
@@ -34,7 +47,7 @@ input[type=number] {
 }
 
 #url-action-cell {
-	width: 15em;
+	width: 12em;
 }
 
 #threat-type-header {
@@ -67,18 +80,37 @@ input[type=number] {
 	text-align: justify;
 }
 
+#web-content-container {
+	margin: 0em 5em;
+	max-width: 500em;
+}
+
+#web-content-details-container {
+	margin: 0em 5em;
+	width: 150em;
+}
+
+#textarea {
+	height: 350px;
+}
+
 #web-page-content-header {
-	width: 40em;
+	width: 15em;
 	text-align: center;
 }
 
 #web-page-content-threat-header {
-	width: 25em;
+	width: 5em;
+	text-align: center;
+}
+
+#web-page-content-text-header {
+	width: 15em;
 	text-align: center;
 }
 
 #web-page-content-action-header {
-	width: 25em;
+	width: 5em;
 	text-align: center;
 }
 
@@ -88,7 +120,7 @@ input[type=number] {
 }
 
 #web-page-content-url {
-	width: 25em;
+	width: 85em;
 }
 
 #web-page-content-threat {
@@ -98,10 +130,7 @@ input[type=number] {
 }
 
 #web-page-content-text {
-  width: 30em;
   overflow: hidden;
-  position: relative;
-  display: inline-block;
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;

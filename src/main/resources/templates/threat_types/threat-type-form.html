@@ -39,7 +39,7 @@
 		<p class="h4 mb-4" th:text="${title}"></p>
 		
 		<form action="/" th:action="@{/threat-types/save}"
-						 th:object="${threatType}" method="POST">
+						 th:object="${threatType}" method="POST" autocomplete="off">
 		
 			<input type="hidden" th:field="*{id}"/>
 			<input type="text" th:field="*{typeName}" class="form-control mb-4 col-4" placeholder="Threat Type Name" required>

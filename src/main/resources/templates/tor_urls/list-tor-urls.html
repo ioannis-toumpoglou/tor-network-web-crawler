@@ -31,7 +31,7 @@
 	</div>
 	</nav>
 
-<div class="container">
+<div id="url-container">
 	<br>
 	<h3>Tor Network URLs</h3>
 	<hr>
@@ -44,10 +44,14 @@
 		</div>
 	</div>
 	<nav class="navbar navbar-light bg-light">
-	  <form action="/" th:action="@{/tor-web-crawler/crawl-url}" method="POST" class="form-inline">
-	    <input class="form-control mr-sm-2" type="text" name="url" placeholder="Type a Tor URL" aria-label="Search" required>
+	  <form action="/" th:action="@{/tor-web-crawler/crawl-url}" method="POST" class="form-inline" autocomplete="off">
+	    <input class="form-control mr-sm-2" id="crawl-form" type="text" name="url" placeholder="Type a Tor URL" aria-label="Search" required>
 	    <button class="btn btn-dark my-2 my-sm-0" type="submit">Crawl</button>
 	  </form>
+	  <form class="form-inline my-2 my-lg-0" autocomplete="off">
+        <input class="form-control mr-sm-2" id="search-form" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-dark my-2 my-sm-0" type="submit">Search</button>
+    </form>
 	</nav>
 	<br>
 	<table class="table table-bordered table-striped">
@@ -64,7 +68,7 @@
 				<td id="url-status-cell" th:text="${tempTorUrl.status}"/>
 				<td><span th:classappend="${(tempTorUrl.status == 'Alive' ? 'green-dot' : (tempTorUrl.status=='Offline' ? 'red-dot' : 'yellow-dot'))}"></span></td>
 				<td id="url-action-cell">
-					<a th:href="@{/tor-urls/showUpdateForm(torUrlId=${tempTorUrl.id})}" class="btn btn-info btn-sm">Update</a>
+					<a th:href="@{/tor-urls/showUpdateForm(torUrlId=${tempTorUrl.id})}" class="btn btn-info btn-sm">Open</a>
 					<a th:href="@{/tor-urls/delete(torUrlId=${tempTorUrl.id})}" class="btn btn-danger btn-sm" onclick="if (!(confirm('Are you sure you want to delete this URL?'))) return false">Delete</a>
 				</td>
 			</tr>
