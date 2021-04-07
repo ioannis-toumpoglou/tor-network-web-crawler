@@ -40,6 +40,8 @@ public class WebCrawlerController {
 	@PostMapping("/crawl-url")
 	public String crawlUrl(@ModelAttribute("torUrl") TorNetworkUrl torUrl, BindingResult result, RedirectAttributes redirectAttributes) throws IOException {
 		boolean isDuplicate = false;
+		boolean isNotValid = false;
+		
 		String urlTarget = getFullUrl(torUrl.getUrl());
 		List<TorNetworkUrl> torUrls = torNetworkUrlService.findAll();
 		List<String> urlList = new ArrayList<>();
@@ -51,8 +53,19 @@ public class WebCrawlerController {
 			redirectAttributes.addFlashAttribute("isDuplicate", isDuplicate);
 			return "redirect:/tor-urls/list";
 		}
-
+		
 		HttpURLConnection conn = establishConnectionToWebPage(urlTarget);
+		
+		String webPageStatus = webPageStatus(conn);
+		
+		if ("Access Denied".equals(webPageStatus)) {
+			isNotValid = true; 
+			redirectAttributes.addFlashAttribute("isNotValid", isNotValid);
+			torUrl.setStatus(webPageStatus);
+			torNetworkUrlService.save(torUrl);
+			return "redirect:/tor-urls/list";
+		}
+
 		getLocalIpAddress();
 		getIpAddressOnWeb();
 		torUrl.setUrl(urlTarget);
@@ -66,30 +79,23 @@ public class WebCrawlerController {
 		webPageContentService.save(webPageContent);
 		
 //		List<String> hrefLinks = retrieveHrefLinks(urlTarget);
-//		
-//		for (String hrefLink : hrefLinks) {
-//			conn = establishConnectionToWebPage(hrefLink);
-//			torUrl.setUrl(hrefLink);
-//			torUrl.setStatus(webPageStatus(conn));
-//			torNetworkUrlService.save(torUrl);
+		
+//		if (hrefLinks.size() > 0) {
+//			for (String hrefLink : hrefLinks) {
+//				conn = establishConnectionToWebPage(hrefLink);
+//				torUrl.setUrl(hrefLink);
+//				torUrl.setStatus(webPageStatus(conn));
+//				torNetworkUrlService.save(torUrl);
+//			}
 //		}
 		
 		return "redirect:/tor-urls/list";
 	}
 	
 	public String getFullUrl(String urlTarget) throws IOException {
-		if (!urlTarget.contains("https") && !urlTarget.contains("www")) {
-			urlTarget = "https://www." + urlTarget;
-		} else if (urlTarget.contains("http") && urlTarget.contains("www")) {
-			int index = urlTarget.indexOf('/') + 1;
-			String urlTargetSub = urlTarget.substring(index + 1);
-			urlTarget = "https://" + urlTargetSub;
-		} else if (!urlTarget.contains("http") && urlTarget.contains("www")) {
+		
+		if (!urlTarget.contains("http")) {
 			urlTarget = "https://" + urlTarget;
-		} else if (urlTarget.contains("http") && !urlTarget.contains("www")) {
-			int index = urlTarget.indexOf('/') + 1;
-			String urlTargetSub = urlTarget.substring(index + 1);
-			urlTarget = "https://www." + urlTargetSub;
 		}
 		
         return urlTarget;
@@ -183,9 +189,11 @@ public class WebCrawlerController {
 	}
 	
 	public String webPageStatus(HttpURLConnection conn) throws IOException {
-		if (conn.getResponseCode() == 200) {
+		if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 236) {
 			return "Alive";
-		} else if (conn.getResponseCode() == 500) {
+		} else if (conn.getResponseCode() >= 300 && conn.getResponseCode() <= 308) {
+			return "Alive";
+		} else if (conn.getResponseCode() >= 500 && conn.getResponseCode() <= 599) {
 			return "Offline";
 		}
 		return "Access Denied";
