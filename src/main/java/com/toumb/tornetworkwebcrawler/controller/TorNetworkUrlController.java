@@ -74,4 +74,18 @@ public class TorNetworkUrlController {
 		return "redirect:/tor-urls/list";
 	}
 	
+	@GetMapping("/search")
+	public String searchUrls(Model model, @RequestParam("keyword") String keyword) {
+		if (keyword != null && keyword.trim().length() > 0) {
+			// Get the URL list from the Service
+			List<TorNetworkUrl> torUrls = torNetworkUrlService.findByKeyword(keyword);
+			// Add the URL list to the model
+			model.addAttribute("torUrls", torUrls);
+		} else {
+			listTorNetWorkUrls(model);
+		}
+		
+		return "tor_urls/list-tor-urls";
+	}
+	
 }

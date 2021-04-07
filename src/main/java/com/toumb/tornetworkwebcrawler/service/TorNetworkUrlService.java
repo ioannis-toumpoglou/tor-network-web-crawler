@@ -13,5 +13,7 @@ public interface TorNetworkUrlService {
 	public void save(TorNetworkUrl torNetorkUrl);
 	
 	public void deleteById(int id);
+	
+	public List<TorNetworkUrl> findByKeyword(String keyword);
 
 }

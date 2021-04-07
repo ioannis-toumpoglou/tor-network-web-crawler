@@ -48,5 +48,10 @@ public class TorNetworkUrlServiceImpl implements TorNetworkUrlService {
 	public void deleteById(int id) {		
 		torNetworkUrlRepository.deleteById(id);
 	}
+	
+	@Override
+	public List<TorNetworkUrl> findByKeyword(String keyword) {
+		return torNetworkUrlRepository.findByKeyword(keyword);
+	}
 
 }
