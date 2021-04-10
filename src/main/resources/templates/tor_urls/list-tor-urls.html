@@ -9,6 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<link type="text/css" rel="stylesheet" href="../../css/app.css">
+	<link rel="shortcut icon" href="#">
 	<title>Tor Network URLs</title>
 </head>
 
@@ -54,6 +55,7 @@
 	<nav class="navbar navbar-light bg-light">
 	  <form action="/" th:action="@{/tor-web-crawler/crawl-url}" method="POST" class="form-inline" autocomplete="off">
 	    <input class="form-control mr-sm-2" id="crawl-form" type="text" name="url" placeholder="Type a Tor URL" aria-label="Search" required>
+	    <input class="form-control mr-sm-2" id="crawl-page-number-form" type="number" name="urlPageNo" placeholder="No of Pages" aria-label="Search">
 	    <button class="btn btn-dark my-2 my-sm-0" type="submit">Crawl</button>
 	  </form>
 	  <form action="#" th:action="@{/tor-urls/search(keyword=${keyword})}" th:object="${torUrls}" method="GET"
