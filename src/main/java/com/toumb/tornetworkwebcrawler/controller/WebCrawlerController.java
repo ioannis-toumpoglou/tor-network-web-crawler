@@ -38,7 +38,7 @@ public class WebCrawlerController {
 	}
 	
 	@PostMapping("/crawl-url")
-	public String crawlUrl(@ModelAttribute("torUrl") TorNetworkUrl torUrl, BindingResult result, RedirectAttributes redirectAttributes) throws IOException {
+	public String crawlUrl(@ModelAttribute("torUrl") TorNetworkUrl torUrl, Integer urlPageNo, BindingResult result, RedirectAttributes redirectAttributes) throws IOException {
 		boolean isDuplicate = false;
 		boolean isNotValid = false;
 		
@@ -78,17 +78,37 @@ public class WebCrawlerController {
 		webPageContent.setText(retrieveWebPageText(urlTarget));
 		webPageContentService.save(webPageContent);
 		
-//		List<String> hrefLinks = retrieveHrefLinks(urlTarget);
+		List<String> hrefLinks = retrieveHrefLinks(urlTarget);
 		
-//		if (hrefLinks.size() > 0) {
-//			for (String hrefLink : hrefLinks) {
-//				conn = establishConnectionToWebPage(hrefLink);
-//				torUrl.setUrl(hrefLink);
-//				torUrl.setStatus(webPageStatus(conn));
-//				torNetworkUrlService.save(torUrl);
-//			}
-//		}
-		
+		if (urlPageNo == null) {
+			urlPageNo = 0;
+		} else {
+			if (hrefLinks.size() > 0) {
+				int i = 1;
+				for (String hrefLink : hrefLinks) {
+					if (urlList.contains(hrefLink)) {
+						continue;
+					}
+					conn = establishConnectionToWebPage(hrefLink);
+					TorNetworkUrl tempUrl = new TorNetworkUrl();
+					tempUrl.setUrl(hrefLink);
+					tempUrl.setStatus(webPageStatus(conn));
+					torNetworkUrlService.save(tempUrl);
+					WebPageContent tempWebPageContent = new WebPageContent();
+					tempWebPageContent.setUrl(hrefLink);
+					tempWebPageContent.setHtmlCode(retrieveHtmlSourceCode(conn, hrefLink));
+					tempWebPageContent.setText(retrieveWebPageText(hrefLink));
+					webPageContentService.save(tempWebPageContent);
+					
+					if (i == urlPageNo) {
+						break;
+					} else {
+						i++;
+					}
+				}
+			}
+		}
+		System.out.println("\nCrawl completed successfully.\n");
 		return "redirect:/tor-urls/list";
 	}
 	
@@ -97,7 +117,6 @@ public class WebCrawlerController {
 		if (!urlTarget.contains("http")) {
 			urlTarget = "https://" + urlTarget;
 		}
-		
         return urlTarget;
 	}
 	
