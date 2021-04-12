@@ -86,6 +86,9 @@ public class WebCrawlerController {
 			if (hrefLinks.size() > 0) {
 				int i = 1;
 				for (String hrefLink : hrefLinks) {
+					if (i == urlPageNo) {
+						break;
+					}
 					if (urlList.contains(hrefLink)) {
 						continue;
 					}
@@ -99,12 +102,7 @@ public class WebCrawlerController {
 					tempWebPageContent.setHtmlCode(retrieveHtmlSourceCode(conn, hrefLink));
 					tempWebPageContent.setText(retrieveWebPageText(hrefLink));
 					webPageContentService.save(tempWebPageContent);
-					
-					if (i == urlPageNo) {
-						break;
-					} else {
-						i++;
-					}
+					i++;
 				}
 			}
 		}
@@ -113,11 +111,8 @@ public class WebCrawlerController {
 	}
 	
 	public String getFullUrl(String urlTarget) throws IOException {
-		
-		if (!urlTarget.contains("http")) {
-			urlTarget = "https://" + urlTarget;
-		}
-        return urlTarget;
+		String fullUrl = "https://" + urlTarget;
+        return urlTarget.contains("http") ? urlTarget : fullUrl;
 	}
 	
 	public HttpURLConnection establishConnectionToWebPage(String urlTarget) throws IOException {
@@ -177,7 +172,7 @@ public class WebCrawlerController {
 	
 	public String retrieveWebPageText(String urlTarget) throws IOException {
 		Document doc = Jsoup.connect(urlTarget).get();	// Get the webpage
-		Elements paragraphs = doc.select("div");	// Get the HTML div elements
+		Elements paragraphs = doc.select("p");	// Get the HTML paragraph elements
 		String webPageText = "";
 		
 		for (Element paragraph : paragraphs) {
