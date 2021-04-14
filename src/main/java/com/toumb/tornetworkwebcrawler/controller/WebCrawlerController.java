@@ -42,72 +42,86 @@ public class WebCrawlerController {
 		boolean isDuplicate = false;
 		boolean isNotValid = false;
 		
-		String urlTarget = getFullUrl(torUrl.getUrl());
-		List<TorNetworkUrl> torUrls = torNetworkUrlService.findAll();
-		List<String> urlList = new ArrayList<>();
-		
-		torUrls.forEach(item -> urlList.add(item.getUrl()));
-		
-		if (urlList.contains(urlTarget)) {
-			isDuplicate = true; 
-			redirectAttributes.addFlashAttribute("isDuplicate", isDuplicate);
-			return "redirect:/tor-urls/list";
-		}
-		
-		HttpURLConnection conn = establishConnectionToWebPage(urlTarget);
-		
-		String webPageStatus = webPageStatus(conn);
-		
-		if ("Access Denied".equals(webPageStatus)) {
-			isNotValid = true; 
-			redirectAttributes.addFlashAttribute("isNotValid", isNotValid);
-			torUrl.setStatus(webPageStatus);
+		try {
+			String urlTarget = getFullUrl(torUrl.getUrl());
+			List<TorNetworkUrl> torUrls = torNetworkUrlService.findAll();
+			List<String> urlList = new ArrayList<>();
+			
+			torUrls.forEach(item -> urlList.add(item.getUrl()));
+			
+			if (urlList.contains(urlTarget)) {
+				isDuplicate = true; 
+				redirectAttributes.addFlashAttribute("isDuplicate", isDuplicate);
+				return "redirect:/tor-urls/list";
+			}
+			
+			HttpURLConnection conn = establishConnectionToWebPage(urlTarget);
+			
+			String webPageStatus = webPageStatus(conn);
+			
+			if ("Access Denied".equals(webPageStatus)) {
+				isNotValid = true; 
+				redirectAttributes.addFlashAttribute("isNotValid", isNotValid);
+				torUrl.setStatus(webPageStatus);
+				torNetworkUrlService.save(torUrl);
+				return "redirect:/tor-urls/list";
+			}
+	
+			getLocalIpAddress();
+			getIpAddressOnWeb();
+			torUrl.setUrl(urlTarget);
+			torUrl.setStatus(webPageStatus(conn));
 			torNetworkUrlService.save(torUrl);
-			return "redirect:/tor-urls/list";
-		}
-
-		getLocalIpAddress();
-		getIpAddressOnWeb();
-		torUrl.setUrl(urlTarget);
-		torUrl.setStatus(webPageStatus(conn));
-		torNetworkUrlService.save(torUrl);
-		
-		WebPageContent webPageContent = new WebPageContent();
-		webPageContent.setUrl(urlTarget);
-		webPageContent.setHtmlCode(retrieveHtmlSourceCode(conn, urlTarget));
-		webPageContent.setText(retrieveWebPageText(urlTarget));
-		webPageContentService.save(webPageContent);
-		
-		List<String> hrefLinks = retrieveHrefLinks(urlTarget);
-		
-		if (urlPageNo == null) {
-			urlPageNo = 0;
-		} else {
-			if (hrefLinks.size() > 0) {
-				int i = 1;
-				for (String hrefLink : hrefLinks) {
-					if (i == urlPageNo) {
-						break;
+			
+			WebPageContent webPageContent = new WebPageContent();
+			webPageContent.setUrl(urlTarget);
+			webPageContent.setHtmlCode(retrieveHtmlSourceCode(conn, urlTarget));
+			webPageContent.setText(retrieveWebPageText(urlTarget));
+			webPageContentService.save(webPageContent);
+			
+			List<String> hrefLinks = retrieveHrefLinks(urlTarget);
+			
+			if (urlPageNo == null) {
+				urlPageNo = 0;
+			} else {
+				if (hrefLinks.size() > 0) {
+					int i = 1;
+					for (String hrefLink : hrefLinks) {
+						if (i == urlPageNo) {
+							break;
+						}
+						if (urlList.contains(hrefLink)) {
+							continue;
+						}
+						try {
+							conn = establishConnectionToWebPage(hrefLink);
+							TorNetworkUrl tempUrl = new TorNetworkUrl();
+							tempUrl.setUrl(hrefLink);
+							tempUrl.setStatus(webPageStatus(conn));
+							torNetworkUrlService.save(tempUrl);
+							WebPageContent tempWebPageContent = new WebPageContent();
+							tempWebPageContent.setUrl(hrefLink);
+							tempWebPageContent.setHtmlCode(retrieveHtmlSourceCode(conn, hrefLink));
+							tempWebPageContent.setText(retrieveWebPageText(hrefLink));
+							webPageContentService.save(tempWebPageContent);
+							i++;
+						} catch (Exception e) {
+							continue;
+						}
 					}
-					if (urlList.contains(hrefLink)) {
-						continue;
-					}
-					conn = establishConnectionToWebPage(hrefLink);
-					TorNetworkUrl tempUrl = new TorNetworkUrl();
-					tempUrl.setUrl(hrefLink);
-					tempUrl.setStatus(webPageStatus(conn));
-					torNetworkUrlService.save(tempUrl);
-					WebPageContent tempWebPageContent = new WebPageContent();
-					tempWebPageContent.setUrl(hrefLink);
-					tempWebPageContent.setHtmlCode(retrieveHtmlSourceCode(conn, hrefLink));
-					tempWebPageContent.setText(retrieveWebPageText(hrefLink));
-					webPageContentService.save(tempWebPageContent);
-					i++;
 				}
 			}
+			System.out.println("\nCrawl completed successfully.\n");
+			return "redirect:/tor-urls/list";
+		} catch (Exception e) {
+			isNotValid = true; 
+			redirectAttributes.addFlashAttribute("isNotValid", isNotValid);
+			torUrl.setStatus("Access Denied");
+			torNetworkUrlService.save(torUrl);
+			System.out.println("Error retrieving the web page..");
+			System.out.println("Please try again.");
+			return "redirect:/tor-urls/list";
 		}
-		System.out.println("\nCrawl completed successfully.\n");
-		return "redirect:/tor-urls/list";
 	}
 	
 	public String getFullUrl(String urlTarget) throws IOException {
