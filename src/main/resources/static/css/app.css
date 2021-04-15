@@ -19,7 +19,7 @@ input[type=number] {
 }
 
 .add-button {
-	width: 13em;
+	width: 4em;
 }
 
 #url-container {
@@ -51,7 +51,7 @@ input[type=number] {
 }
 
 #url-action-cell {
-	width: 12em;
+	width: 20em;
 }
 
 #threat-type-header {
@@ -95,7 +95,7 @@ input[type=number] {
 }
 
 #textarea {
-	height: 350px;
+	height: auto;
 }
 
 #web-page-content-header {
