@@ -10,6 +10,8 @@ public interface WebPageContentService {
 	
 	public WebPageContent findById(int id);
 	
+	public WebPageContent findByUrl(String url);
+	
 	public void save(WebPageContent webPageContent);
 	
 	public void deleteById(int id);

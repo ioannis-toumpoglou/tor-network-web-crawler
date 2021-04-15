@@ -38,6 +38,21 @@ public class WebPageContentServiceImpl implements WebPageContentService {
 		
 		return webPageContent;
 	}
+	
+	@Override
+	public WebPageContent findByUrl(String url) {
+		Optional<WebPageContent> result = webPageContentRepository.findByUrl(url);
+		
+		WebPageContent webPageContent = null;
+		// Check if the web page content exists
+		if (result.isPresent()) {
+			webPageContent = result.get();
+		} else {
+			throw new RuntimeException("Unable to find the web page content id - " + url);
+		}
+		
+		return webPageContent;
+	}
 
 	@Override
 	public void save(WebPageContent webPageContent) {
