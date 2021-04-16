@@ -32,10 +32,10 @@
 	</div>
 	</nav>
 
-	<div class="container">
+	<div id="url-edit-container">
 		<br>
 		<h3>Tor Network URLs</h3>
-		<hr>
+		<hr style="margin-right:30em;">
 		
 		<p class="h4 mb-4" th:text="${title}"></p>
 		
@@ -43,13 +43,13 @@
 						 th:object="${torUrl}" method="POST">
 		
 			<input type="hidden" th:field="*{id}"/>
-			<input type="text" th:field="*{url}" class="form-control mb-4 col-4" placeholder="Tor URL" required>
-			<button type="submit" class="btn btn-dark col-2">Save</button>
-			<a href="/tor-urls/list" class="btn btn-dark col-2">Cancel</a>
+			<input type="text" th:field="*{url}" class="form-control mb-4 col-6" placeholder="Tor URL" required>
+			<button type="submit" class="btn btn-dark col-3">Save</button>
+			<a href="/tor-urls/list" class="btn btn-dark col-3">Cancel</a>
 		
 		</form>
 
-		<hr>
+		<hr style="margin-right:30em;">
 	
 	</div>
 
