@@ -10,6 +10,8 @@ public interface TorNetworkUrlService {
 	
 	public TorNetworkUrl findById(int id);
 	
+	public TorNetworkUrl findByUrl(String url);
+	
 	public void save(TorNetworkUrl torNetorkUrl);
 	
 	public void deleteById(int id);

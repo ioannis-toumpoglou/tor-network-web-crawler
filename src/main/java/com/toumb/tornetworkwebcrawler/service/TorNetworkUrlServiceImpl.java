@@ -38,6 +38,21 @@ public class TorNetworkUrlServiceImpl implements TorNetworkUrlService {
 		
 		return torNetworkUrl;
 	}
+	
+	@Override
+	public TorNetworkUrl findByUrl(String url) {
+		Optional<TorNetworkUrl> result = torNetworkUrlRepository.findByUrl(url);
+		
+		TorNetworkUrl torNetworkUrl = null;
+		// Check if the web page content exists
+		if (result.isPresent()) {
+			torNetworkUrl = result.get();
+		} else {
+			throw new RuntimeException("Unable to find URL - " + url);
+		}
+		
+		return torNetworkUrl;
+	}
 
 	@Override
 	public void save(TorNetworkUrl torNetworkUrl) {

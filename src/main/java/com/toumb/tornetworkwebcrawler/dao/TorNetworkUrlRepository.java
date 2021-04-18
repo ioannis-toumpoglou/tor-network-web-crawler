@@ -1,6 +1,7 @@
 package com.toumb.tornetworkwebcrawler.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,4 +16,7 @@ public interface TorNetworkUrlRepository extends JpaRepository<TorNetworkUrl, In
 
 	@Query("FROM TorNetworkUrl WHERE LOWER(url) LIKE %?1% OR LOWER(status) LIKE %?1%")
 	public List<TorNetworkUrl> findByKeyword(String keyword);
+
+	public Optional<TorNetworkUrl> findByUrl(String url);
+	
 }
