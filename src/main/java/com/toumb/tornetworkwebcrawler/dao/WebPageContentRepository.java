@@ -15,4 +15,6 @@ public interface WebPageContentRepository extends JpaRepository<WebPageContent, 
 
 	public Optional<WebPageContent> findByUrl(String url);
 
+	public void deleteByUrl(String url);
+
 }

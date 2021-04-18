@@ -15,5 +15,7 @@ public interface WebPageContentService {
 	public void save(WebPageContent webPageContent);
 	
 	public void deleteById(int id);
+	
+	public void deleteByUrl(String url);
 
 }

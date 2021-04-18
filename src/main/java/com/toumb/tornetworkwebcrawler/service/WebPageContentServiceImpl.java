@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.toumb.tornetworkwebcrawler.dao.WebPageContentRepository;
 import com.toumb.tornetworkwebcrawler.entity.WebPageContent;
@@ -62,6 +63,12 @@ public class WebPageContentServiceImpl implements WebPageContentService {
 	@Override
 	public void deleteById(int id) {		
 		webPageContentRepository.deleteById(id);
+	}
+	
+	@Override
+	@Transactional
+	public void deleteByUrl(String url) {		
+		webPageContentRepository.deleteByUrl(url);
 	}
 
 }

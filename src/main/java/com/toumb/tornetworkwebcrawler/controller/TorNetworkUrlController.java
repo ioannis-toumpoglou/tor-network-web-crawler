@@ -14,15 +14,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.toumb.tornetworkwebcrawler.entity.TorNetworkUrl;
 import com.toumb.tornetworkwebcrawler.service.TorNetworkUrlService;
+import com.toumb.tornetworkwebcrawler.service.WebPageContentService;
 
 @Controller
 @RequestMapping("/tor-urls")
 public class TorNetworkUrlController {
 	
 	private TorNetworkUrlService torNetworkUrlService;
+	private WebPageContentService webPageContentService;
 	
-	public TorNetworkUrlController(TorNetworkUrlService theTorNetworkUrlService) {
+	public TorNetworkUrlController(TorNetworkUrlService theTorNetworkUrlService, WebPageContentService theWebPageContentService) {
 		this.torNetworkUrlService = theTorNetworkUrlService;
+		this.webPageContentService = theWebPageContentService;
 	}
 
 	@GetMapping("/list")
@@ -68,6 +71,9 @@ public class TorNetworkUrlController {
 	
 	@GetMapping("/delete")
 	public String deleteTorUrl(@RequestParam("torUrlId") int id) {
+		// Delete the content from the web page content list
+		TorNetworkUrl url = torNetworkUrlService.findById(id);
+		webPageContentService.deleteByUrl(url.getUrl());
 		// Delete the Tor URL record
 		torNetworkUrlService.deleteById(id);
 		
