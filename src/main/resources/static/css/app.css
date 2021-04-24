@@ -10,8 +10,16 @@ input[type=number] {
 	-moz-appearance: textfield;
 }
 
+.logo {
+	color: #ffffff; 
+	font-family: Arial; 
+	font-weight: bold;
+	margin-left: 4px;
+}
+
 .table {
 	background-color: #f2f2f2;
+	width: 1050px;
 }
 
 .crawl-search-section {
@@ -71,9 +79,9 @@ input[type=number] {
 	width: 60em;
 }
 
-#threat-type-container {
-	margin: 0em 30em 0em 30em;
-	width: 150em;
+.threat-type-container {
+	margin: 0em 20em;
+	max-width: 500em;
 }
 
 #threat-type-header {
@@ -81,9 +89,14 @@ input[type=number] {
 	text-align: center;
 }
 
-#threat-type-description-header {
-	width: 10em;
-	text-align: center;
+#threat-type-description-container {
+	margin: 0em 20em;
+	max-width: 500em;
+}
+
+#threat-type-details-container {
+	margin: 0em 30em 0em 30em;
+	width: 150em;
 }
 
 #threat-type-action-header {
@@ -102,12 +115,12 @@ input[type=number] {
 }
 
 #threat-type-description {
-	width: 400px; 
+	width: 440px; 
 	text-align: justify;
 }
 
 #web-content-container {
-	margin: 0em 10em;
+	margin: 0em 20em;
 	max-width: 500em;
 }
 
@@ -137,7 +150,7 @@ input[type=number] {
 }
 
 #web-page-content-action-header {
-	width: 5em;
+	width: 10em;
 	text-align: center;
 }
 
@@ -193,4 +206,22 @@ input[type=number] {
 img {
     max-width: 100%;
     height: 50px;
+}
+
+.btn-group-vertical {
+	float: left;
+	margin-left: 40px;
+	margin-top: 10px;
+}
+
+.list-group-item {
+    font-family: Arial;
+    font-weight: bold;
+    color: #343a40;
+    background: #d9d9d9;
+}
+
+.list-group-item-dark.list-group-item-action.active {
+	background-color: #babbc0;
+	color: #343a40;
 }

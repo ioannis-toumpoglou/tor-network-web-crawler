@@ -16,26 +16,19 @@
 <body>
 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-	<img src="../../images/tor-logo.png"/>
-	  <div class="container-fluid">
-	    <div class="navbar-brand">
-		    <div class="btn-group bg-dark">
-			  <button type="button" class="btn btn-secondary dropdown-toggle font-weight-bold bg-dark" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			  </button>
-			  <div class="dropdown-menu bg-dark">
-			    <a class="nav-link text-light" th:href="@{/tor-urls/list}">Tor URL List</a>
-			    <a class="nav-link text-light" th:href="@{/web-page-content/list}">Web Page Content</a>
-			    <a class="nav-link text-light" th:href="@{/threat-types/list}">Cyber Threat Info</a>
-			  </div>
-			</div>
-		</div>
-	</div>
+	<img src="../../images/tor-logo.png" style="margin:5px"/><span class="logo">Web Crawler</span>
 	</nav>
+	<br>
+	<div class="btn-group-vertical">
+		<a class="list-group-item list-group-item-action list-group-item-dark border-0 active disabled" th:href="@{/tor-urls/list}"><img src="../../images/tor-onion-black.png" style="margin-right:10px; width:14%; height:94%;"/>Tor URL List</a>
+		<a class="list-group-item list-group-item-action list-group-item-dark border-0" th:href="@{/web-page-content/list}"><img src="../../images/tor-onion-purple.png" style="margin-right:10px; width:14%; height:92%;"/>Web Page Content</a>
+		<a class="list-group-item list-group-item-action list-group-item-dark border-0" th:href="@{/threat-types/list}"><img src="../../images/tor-onion-purple.png" style="margin-right:10px; width:14%; height:92%;"/>Cyber Threat Info</a>
+	</div>
 
 <div id="url-container">
-	<br>
 	<h3>Tor Network URLs</h3>
-	<hr>
+	<hr style="margin-right:1em;">
+	
 	<div th:if="${isDuplicate}">
 		<div class="alert alert-danger alert-dismissible fade show" role="alert">
 		  <strong>This URL is already in the list</strong>
@@ -52,6 +45,7 @@
 		  </button>
 		</div>
 	</div>
+	
 	<nav class="navbar navbar-light crawl-search-section">
 	  <form action="/" th:action="@{/tor-web-crawler/crawl-url}" method="POST" class="form-inline" autocomplete="off">
 	    <input class="form-control mr-sm-2" id="crawl-form" type="text" name="url" placeholder="Type a Tor URL" aria-label="Search" required>
@@ -64,8 +58,8 @@
         <button class="btn btn-dark my-2 my-sm-0" type="submit">Search</button>
     </form>
 	</nav>
-	<br>
-	<table class="table table-bordered table-striped">
+	
+	<table class="table table-bordered table-striped mt-3">
 		<thead class="thead-dark">
 			<tr>
 				<th id="url-header">Tor Network URL</th>
