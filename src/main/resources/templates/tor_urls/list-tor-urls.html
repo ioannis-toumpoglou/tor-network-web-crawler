@@ -49,7 +49,7 @@
 	<nav class="navbar navbar-light crawl-search-section">
 	  <form action="/" th:action="@{/tor-web-crawler/crawl-url}" method="POST" class="form-inline" autocomplete="off">
 		    <input class="form-control mr-sm-2 ml-0" id="crawl-form" type="text" name="url" placeholder="Type a Tor URL" aria-label="Search" required>
-		    <input class="form-control mr-sm-2" id="crawl-page-number-form" type="number" name="urlPageNo" placeholder="No of Pages" aria-label="Search">
+		    <input class="form-control mr-sm-2" id="crawl-page-number-form" type="number" min="0" max="100" name="urlPageNo" placeholder="No of Pages" aria-label="Search">
 		    <button class="btn btn-dark my-2 my-sm-0" type="submit">Crawl</button>
 	  </form>
 	  <form action="#" th:action="@{/tor-urls/search(keyword=${keyword})}" th:object="${torUrls}" method="GET"
