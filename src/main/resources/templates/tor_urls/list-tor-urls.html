@@ -27,7 +27,7 @@
 
 <div id="url-container">
 	<h3>Tor Network URLs</h3>
-	<hr style="margin-right:1em;">
+	<hr>
 	
 	<div th:if="${isDuplicate}">
 		<div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -48,15 +48,15 @@
 	
 	<nav class="navbar navbar-light crawl-search-section">
 	  <form action="/" th:action="@{/tor-web-crawler/crawl-url}" method="POST" class="form-inline" autocomplete="off">
-	    <input class="form-control mr-sm-2 ml-0" id="crawl-form" type="text" name="url" placeholder="Type a Tor URL" aria-label="Search" required>
-	    <input class="form-control mr-sm-2" id="crawl-page-number-form" type="number" name="urlPageNo" placeholder="No of Pages" aria-label="Search">
-	    <button class="btn btn-dark my-2 my-sm-0" type="submit">Crawl</button>
+		    <input class="form-control mr-sm-2 ml-0" id="crawl-form" type="text" name="url" placeholder="Type a Tor URL" aria-label="Search" required>
+		    <input class="form-control mr-sm-2" id="crawl-page-number-form" type="number" name="urlPageNo" placeholder="No of Pages" aria-label="Search">
+		    <button class="btn btn-dark my-2 my-sm-0" type="submit">Crawl</button>
 	  </form>
 	  <form action="#" th:action="@{/tor-urls/search(keyword=${keyword})}" th:object="${torUrls}" method="GET"
 	  		class="form-inline my-2 my-lg-0" autocomplete="off">
-        <input class="form-control mr-sm-2" id="search-form" name="keyword" type="text" placeholder="Search" aria-label="Search">
-        <button class="btn btn-dark my-2 my-sm-0" type="submit">Search</button>
-    </form>
+	        <input class="form-control mr-sm-2" id="search-form" name="keyword" type="text" placeholder="Search" aria-label="Search">
+	        <button class="btn btn-dark my-2 my-sm-0" type="submit">Search</button>
+      </form>
 	</nav>
 	
 	<table class="table table-bordered table-striped mt-3">

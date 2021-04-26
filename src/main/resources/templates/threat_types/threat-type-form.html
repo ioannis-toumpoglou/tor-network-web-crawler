@@ -20,15 +20,15 @@
 	</nav>
 	<br>
 	<div class="btn-group-vertical">
-		<a class="list-group-item list-group-item-action list-group-item-dark border-0 active disabled" th:href="@{/tor-urls/list}"><img src="../../images/tor-onion-black.png" style="margin-right:10px; width:14%; height:94%;"/>Tor URL List</a>
+		<a class="list-group-item list-group-item-action list-group-item-dark border-0" th:href="@{/tor-urls/list}"><img src="../../images/tor-onion-purple.png" style="margin-right:10px; width:14%; height:94%;"/>Tor URL List</a>
 		<a class="list-group-item list-group-item-action list-group-item-dark border-0" th:href="@{/web-page-content/list}"><img src="../../images/tor-onion-purple.png" style="margin-right:10px; width:14%; height:92%;"/>Web Page Content</a>
-		<a class="list-group-item list-group-item-action list-group-item-dark border-0" th:href="@{/threat-types/list}"><img src="../../images/tor-onion-purple.png" style="margin-right:10px; width:14%; height:92%;"/>Cyber Threat Info</a>
+		<a class="list-group-item list-group-item-action list-group-item-dark border-0 active disabled" th:href="@{/threat-types/list}"><img src="../../images/tor-onion-black.png" style="margin-right:10px; width:14%; height:92%;"/>Cyber Threat Info</a>
 	</div>
 
 	<div id="threat-type-details-container">
 		<br>
 		<h3>Threat Types</h3>
-		<hr style="margin-right:100em;">
+		<hr style="width:800px; margin-right:100em;">
 		
 		<p class="h4 mb-4" th:text="${title}"></p>
 		
@@ -42,8 +42,7 @@
 			<a href="/threat-types/list" class="btn btn-dark col-2">Cancel</a>
 		
 		</form>
-		
-		<hr style="margin-right:100em;">
+		<hr style="width:800px; margin-right:100em;">
 	
 	</div>
 

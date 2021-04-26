@@ -27,10 +27,18 @@
 
 <div id="web-content-container">
 	<h3>Web Page Content</h3>
-	<hr style="margin-right:1em;">
-	<br>
+	<hr>
+
+	<nav class="navbar navbar-light crawl-search-section">
+		<span></span>
+		<form action="#" th:action="@{/web-page-content/search(keyword=${keyword})}" th:object="${webPageContents}" method="GET"
+		  		class="form-inline my-2 my-lg-0" autocomplete="off">
+	        <input class="form-control mr-sm-2" id="search-form" name="keyword" type="text" placeholder="Search" aria-label="Search">
+	        <button class="btn btn-dark my-2 my-sm-0" type="submit">Search</button>
+	    </form>
+	</nav>
 	
-	<table class="table table-bordered table-striped" style="table-layout:fixed">
+	<table class="table table-bordered table-striped mt-3" style="table-layout:fixed">
 		<thead class="thead-dark">
 			<tr>
 				<th id="web-page-content-header">Tor Network URL</th>
