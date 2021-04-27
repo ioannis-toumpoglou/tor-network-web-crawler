@@ -70,5 +70,10 @@ public class WebPageContentServiceImpl implements WebPageContentService {
 	public void deleteByUrl(String url) {		
 		webPageContentRepository.deleteByUrl(url);
 	}
+	
+	@Override
+	public List<WebPageContent> findByKeyword(String keyword) {
+		return webPageContentRepository.findByKeyword(keyword);
+	}
 
 }

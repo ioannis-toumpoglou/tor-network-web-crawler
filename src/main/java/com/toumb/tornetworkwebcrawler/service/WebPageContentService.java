@@ -17,5 +17,7 @@ public interface WebPageContentService {
 	public void deleteById(int id);
 	
 	public void deleteByUrl(String url);
+	
+	public List<WebPageContent> findByKeyword(String keyword);
 
 }

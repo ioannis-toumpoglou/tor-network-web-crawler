@@ -84,4 +84,18 @@ public class WebPageContentController {
 		return "redirect:/web-page-content/list";
 	}
 	
+	@GetMapping("/search")
+	public String searchWebPageContent(Model model, @RequestParam("keyword") String keyword) {
+		if (keyword != null && keyword.trim().length() > 0) {
+			// Get the Web Page Content list from the Service
+			List<WebPageContent> webPageContent = webPageContentService.findByKeyword(keyword);
+			// Add the Web Page Content list to the model
+			model.addAttribute("webPageContent", webPageContent);
+		} else {
+			listWebPageContent(model);
+		}
+		
+		return "web_page_content/list-web-page-content";
+	}
+	
 }
