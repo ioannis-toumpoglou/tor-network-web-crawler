@@ -13,5 +13,7 @@ public interface ThreatTypeService {
 	public void save(ThreatType threatType);
 	
 	public void deleteById(int id);
+	
+	public List<ThreatType> findByKeyword(String keyword);
 
 }

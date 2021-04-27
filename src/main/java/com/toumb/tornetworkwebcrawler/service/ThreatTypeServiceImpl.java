@@ -48,5 +48,10 @@ public class ThreatTypeServiceImpl implements ThreatTypeService {
 	public void deleteById(int id) {		
 		threatTypeRepository.deleteById(id);
 	}
+	
+	@Override
+	public List<ThreatType> findByKeyword(String keyword) {
+		return threatTypeRepository.findByKeyword(keyword);
+	}
 
 }

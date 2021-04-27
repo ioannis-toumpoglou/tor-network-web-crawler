@@ -74,4 +74,18 @@ public class ThreatTypeController {
 		return "redirect:/threat-types/list";
 	}
 	
+	@GetMapping("/search")
+	public String searchThreatTypes(Model model, @RequestParam("keyword") String keyword) {
+		if (keyword != null && keyword.trim().length() > 0) {
+			// Get the URL list from the Service
+			List<ThreatType> threatTypes = threatTypeService.findByKeyword(keyword);
+			// Add the URL list to the model
+			model.addAttribute("threatTypes", threatTypes);
+		} else {
+			listThreatTypes(model);
+		}
+		
+		return "threat_types/list-threat-types";
+	}
+	
 }
