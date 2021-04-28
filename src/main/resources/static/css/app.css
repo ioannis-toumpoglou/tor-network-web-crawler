@@ -16,6 +16,10 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+a {
+	color: #191970;
+}
+
 #logo-image {
 	 margin-left: 2em;
 	 margin-bottom: 1em;

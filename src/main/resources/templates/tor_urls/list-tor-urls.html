@@ -69,7 +69,7 @@
 		</thead>
 		<tbody class="table">
 			<tr id="url-row" th:each="tempTorUrl : ${torUrls}">
-				<td th:text="${tempTorUrl.url}"/>
+				<td><a th:href="${tempTorUrl.url}" th:text="${tempTorUrl.url}" target="_blank"></a></td>
 				<td id="url-status-cell" th:text="${tempTorUrl.status}"/>
 				<td><span th:classappend="${(tempTorUrl.status == 'Alive' ? 'green-dot' : (tempTorUrl.status=='Offline' ? 'red-dot' : 'yellow-dot'))}"></span></td>
 				<td id="url-action-cell">

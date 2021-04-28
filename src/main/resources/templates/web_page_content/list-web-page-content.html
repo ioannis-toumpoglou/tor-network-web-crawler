@@ -49,7 +49,7 @@
 		</thead>
 		<tbody>
 			<tr id="web-page-content-row" th:each="tempWebPageContent : ${webPageContent}">
-				<td id="web-page-content-url" th:text="${tempWebPageContent.url}"/>
+				<td id="web-page-content-url"><a th:href="${tempWebPageContent.url}" th:text="${tempWebPageContent.url}" target="_blank"></a></td>
 				<td id="web-page-content-threat" th:text="${tempWebPageContent.threatType}"/>
 				<td id="web-page-content-text" th:text="${tempWebPageContent.text}"/>
 				<td id="web-page-content-action">
