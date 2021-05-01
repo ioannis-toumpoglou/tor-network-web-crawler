@@ -114,13 +114,23 @@ public class WebCrawlerController {
 			System.out.println("\nCrawl completed successfully.\n");
 			return "redirect:/tor-urls/list";
 		} catch (Exception e) {
-			isNotValid = true; 
-			redirectAttributes.addFlashAttribute("isNotValid", isNotValid);
-			torUrl.setStatus("Access Denied");
-			torNetworkUrlService.save(torUrl);
-			System.out.println("Error retrieving the web page..");
-			System.out.println("Please try again.");
-			return "redirect:/tor-urls/list";
+			isNotValid = true;
+			if (!torUrl.getUrl().contains(".com") || !torUrl.getUrl().contains(".gr")
+					|| !torUrl.getUrl().contains(".co.uk") || !torUrl.getUrl().contains(".gov")
+					|| !torUrl.getUrl().contains(".org") || !torUrl.getUrl().contains(".net")
+					|| !torUrl.getUrl().contains(".edu") || !torUrl.getUrl().contains(".onion")) {
+				redirectAttributes.addFlashAttribute("isNotValid", isNotValid);
+				System.out.println("\nError retrieving the web page..");
+				System.out.println("Please try again.");
+				return "redirect:/tor-urls/list";				
+			} else {
+				redirectAttributes.addFlashAttribute("isNotValid", isNotValid);
+				torUrl.setStatus("Access Denied");
+				torNetworkUrlService.save(torUrl);
+				System.out.println("Error retrieving the web page..");
+				System.out.println("Please try again.");
+				return "redirect:/tor-urls/list";
+			}
 		}
 	}
 	
