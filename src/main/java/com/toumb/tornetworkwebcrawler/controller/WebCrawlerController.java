@@ -8,6 +8,7 @@ import java.net.InetAddress;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -32,6 +33,8 @@ public class WebCrawlerController {
 	private TorNetworkUrlService torNetworkUrlService;
 	private WebPageContentService webPageContentService;
 	
+	private final static Logger LOG = Logger.getLogger(WebCrawlerController.class.getName());
+	
 	public WebCrawlerController(TorNetworkUrlService theTorNetworkUrlService, WebPageContentService theWebPageContentService) {
 		this.torNetworkUrlService = theTorNetworkUrlService;
 		this.webPageContentService = theWebPageContentService;
@@ -41,6 +44,7 @@ public class WebCrawlerController {
 	public String crawlUrl(@ModelAttribute("torUrl") TorNetworkUrl torUrl, Integer urlPageNo, BindingResult result, RedirectAttributes redirectAttributes) throws IOException {
 		boolean isDuplicate = false;
 		boolean isNotValid = false;
+		boolean isOffline = false;
 		
 		try {
 			String urlTarget = getFullUrl(torUrl.getUrl());
@@ -56,6 +60,7 @@ public class WebCrawlerController {
 			}
 			
 			HttpURLConnection conn = establishConnectionToWebPage(urlTarget);
+			connectToTorNetwork();
 			
 			String webPageStatus = webPageStatus(conn);
 			
@@ -111,31 +116,31 @@ public class WebCrawlerController {
 					}
 				}
 			}
-			System.out.println("\nCrawl completed successfully.\n");
+			LOG.info("\nCrawl completed successfully\n");
 			return "redirect:/tor-urls/list";
 		} catch (Exception e) {
-			isNotValid = true;
-			if (!torUrl.getUrl().contains(".com") || !torUrl.getUrl().contains(".gr")
-					|| !torUrl.getUrl().contains(".co.uk") || !torUrl.getUrl().contains(".gov")
-					|| !torUrl.getUrl().contains(".org") || !torUrl.getUrl().contains(".net")
-					|| !torUrl.getUrl().contains(".edu") || !torUrl.getUrl().contains(".onion")) {
+			if (!torUrl.getUrl().contains(".onion")) {
+				isNotValid = true;
 				redirectAttributes.addFlashAttribute("isNotValid", isNotValid);
-				System.out.println("\nError retrieving the web page..");
-				System.out.println("Please try again.");
+				LOG.info("The URL format is not correct");
+				LOG.info("\nError retrieving the web page..");
+				LOG.info("Please try again");
 				return "redirect:/tor-urls/list";				
 			} else {
-				redirectAttributes.addFlashAttribute("isNotValid", isNotValid);
-				torUrl.setStatus("Access Denied");
+				isOffline = true;
+				redirectAttributes.addFlashAttribute("isOffline", isOffline);
+				LOG.info("Web Page offline");
+				torUrl.setStatus("Offline");
 				torNetworkUrlService.save(torUrl);
-				System.out.println("Error retrieving the web page..");
-				System.out.println("Please try again.");
+				LOG.info("Error retrieving the web page..");
+				LOG.info("Please try again");
 				return "redirect:/tor-urls/list";
 			}
 		}
 	}
 	
 	public String getFullUrl(String urlTarget) throws IOException {
-		String fullUrl = "https://" + urlTarget;
+		String fullUrl = "http://" + urlTarget;
         return urlTarget.contains("http") ? urlTarget : fullUrl;
 	}
 	
@@ -148,16 +153,15 @@ public class WebCrawlerController {
         url.getProtocol();
         	
         // Print URL information while retrieving the data
-        System.out.println();
-        System.out.println("protocol = " + url.getProtocol());
-        System.out.println("authority = " + url.getAuthority());
-        System.out.println("host = " + url.getHost());
-        System.out.println("port = " + url.getPort());
-        System.out.println("path = " + url.getPath());
-        System.out.println("query = " + url.getQuery());
-        System.out.println("filename = " + url.getFile());
-        System.out.println("ref = " + url.getRef());
-        System.out.println("status code = " + conn.getResponseCode());
+        LOG.info("protocol = " + url.getProtocol());
+        LOG.info("authority = " + url.getAuthority());
+        LOG.info("host = " + url.getHost());
+        LOG.info("port = " + url.getPort());
+        LOG.info("path = " + url.getPath());
+        LOG.info("query = " + url.getQuery());
+        LOG.info("filename = " + url.getFile());
+        LOG.info("ref = " + url.getRef());
+        LOG.info("status code = " + conn.getResponseCode());
         
         return conn;
 	}
@@ -177,7 +181,7 @@ public class WebCrawlerController {
     	BufferedReader in = new BufferedReader(new InputStreamReader(whatismyip.openStream()));
 
     	String ipOnWeb = in.readLine();
-    	System.out.println("IP on web: " + ipOnWeb);
+    	LOG.info("IP on web: " + ipOnWeb);
 	}
 	
 	public String retrieveHtmlSourceCode(HttpURLConnection conn, String urlTarget) throws IOException {
@@ -189,7 +193,7 @@ public class WebCrawlerController {
 			htmlSourceCode += inputLine;
 		}
 		
-		System.out.println("\nWebpage HTML code successfully retrieved.");
+		LOG.info("\nWebpage HTML code successfully retrieved");
 		
 		return htmlSourceCode;
 	}
@@ -204,7 +208,7 @@ public class WebCrawlerController {
 			webPageText += text;
 		}
 		
-	    System.out.println("\nWebpage text extraction successfully completed.");
+		LOG.info("\nWebpage text extraction successfully completed");
 	    
 	    return webPageText;
 	}
@@ -221,7 +225,7 @@ public class WebCrawlerController {
 			}
 		}
 		
-		System.out.println("\nWebpage links extraction successfully completed.");
+		LOG.info("\nWebpage links extraction successfully completed");
 		
 		return hrefLinks;
 	}
