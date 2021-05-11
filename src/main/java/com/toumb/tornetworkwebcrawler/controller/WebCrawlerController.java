@@ -208,7 +208,8 @@ public class WebCrawlerController {
 		String webPageText = "";
 		
 		for (Element paragraph : paragraphs) {
-			String text = paragraph.text();
+			String text = paragraph.text() + "\n\n";
+
 			webPageText += text;
 		}
 		

@@ -38,7 +38,7 @@
 			<strong>Threat Type:</strong>
 			<div th:text="*{threatType}" class="form-control mb-4 col-4"></div>
 			<strong>Content:</strong>
-			<div th:text="*{text}" class="form-control mb-4 col-4" id="textarea"></div>
+			<textarea rows="10" th:text="*{text}" class="form-control mb-4 col-4" id="textarea"></textarea>
 			<a href="/tor-urls/list" class="btn btn-dark col-2">Back to List</a>
 		
 		</form>
