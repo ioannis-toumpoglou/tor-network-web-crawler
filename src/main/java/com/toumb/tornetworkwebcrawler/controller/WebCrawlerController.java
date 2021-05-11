@@ -200,11 +200,15 @@ public class WebCrawlerController {
 	
 	public String retrieveWebPageText(String urlTarget) throws IOException {
 		Document doc = Jsoup.connect(urlTarget).get();	// Get the webpage
-		Elements paragraphs = doc.select("p");	// Get the HTML paragraph elements
+		Elements paragraphs = doc.select("p");  // Get the HTML paragraph elements
+		if (paragraphs.size() == 0) {
+			paragraphs = doc.select("div");  // Get the HTML div elements if paragraph elements empty
+		}
+		
 		String webPageText = "";
 		
 		for (Element paragraph : paragraphs) {
-			String text = paragraph.text().trim() + "\n\n";
+			String text = paragraph.text();
 			webPageText += text;
 		}
 		

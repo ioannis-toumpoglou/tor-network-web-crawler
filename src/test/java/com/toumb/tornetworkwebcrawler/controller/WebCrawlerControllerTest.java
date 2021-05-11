@@ -47,7 +47,6 @@ class WebCrawlerControllerTest {
 		}
 		
 		assertEquals(status, "Offline");
-		
 	}
 
 }
