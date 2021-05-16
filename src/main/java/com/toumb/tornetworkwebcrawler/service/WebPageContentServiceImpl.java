@@ -34,7 +34,7 @@ public class WebPageContentServiceImpl implements WebPageContentService {
 		if (result.isPresent()) {
 			webPageContent = result.get();
 		} else {
-			throw new RuntimeException("Unable to find the web page content id - " + id);
+			throw new RuntimeException("Unable to find the web page content id: " + id);
 		}
 		
 		return webPageContent;
@@ -49,7 +49,7 @@ public class WebPageContentServiceImpl implements WebPageContentService {
 		if (result.isPresent()) {
 			webPageContent = result.get();
 		} else {
-			throw new RuntimeException("Unable to find the web page content id - " + url);
+			throw new RuntimeException("Unable to find the web page content for web page: " + url);
 		}
 		
 		return webPageContent;

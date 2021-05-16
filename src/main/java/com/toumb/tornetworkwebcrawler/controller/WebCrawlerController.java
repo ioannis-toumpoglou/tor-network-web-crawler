@@ -41,11 +41,11 @@ public class WebCrawlerController {
 	}
 	
 	@PostMapping("/crawl-url")
-	public String crawlUrl(@ModelAttribute("torUrl") TorNetworkUrl torUrl, Integer urlPageNo, BindingResult result, RedirectAttributes redirectAttributes) throws IOException {
+	public String crawlUrl(@ModelAttribute("torUrl") TorNetworkUrl torUrl, Integer urlPageNo, boolean overwritePage, BindingResult result, RedirectAttributes redirectAttributes) throws IOException {
 		boolean isDuplicate = false;
 		boolean isNotValid = false;
 		boolean isOffline = false;
-		
+
 		try {
 			String urlTarget = getFullUrl(torUrl.getUrl());
 			List<TorNetworkUrl> torUrls = torNetworkUrlService.findAll();
@@ -54,9 +54,15 @@ public class WebCrawlerController {
 			torUrls.forEach(item -> urlList.add(item.getUrl()));
 			
 			if (urlList.contains(urlTarget)) {
-				isDuplicate = true; 
-				redirectAttributes.addFlashAttribute("isDuplicate", isDuplicate);
-				return "redirect:/tor-urls/list";
+				if (!overwritePage) {
+					isDuplicate = true; 
+					redirectAttributes.addFlashAttribute("isDuplicate", isDuplicate);
+					return "redirect:/tor-urls/list";
+				} else {
+					TorNetworkUrl tempUrl = torNetworkUrlService.findByUrl(urlTarget);
+					int urlId = tempUrl.getId();
+					torNetworkUrlService.deleteById(urlId);
+				}
 			}
 			
 			HttpURLConnection conn = establishConnectionToWebPage(urlTarget);
@@ -77,6 +83,23 @@ public class WebCrawlerController {
 			torUrl.setUrl(urlTarget);
 			torUrl.setStatus(webPageStatus(conn));
 			torNetworkUrlService.save(torUrl);
+			
+			List<WebPageContent> webContents = webPageContentService.findAll();
+			List<String> webContentList = new ArrayList<>();
+			
+			webContents.forEach(item -> webContentList.add(item.getUrl()));
+			
+			if (webContentList.contains(urlTarget)) {
+				if (!overwritePage) {
+					isDuplicate = true; 
+					redirectAttributes.addFlashAttribute("isDuplicate", isDuplicate);
+					return "redirect:/tor-urls/list";
+				} else {
+					WebPageContent tempWebPageContent = webPageContentService.findByUrl(urlTarget);
+					int urlId = tempWebPageContent.getId();
+					webPageContentService.deleteById(urlId);
+				}
+			}
 			
 			WebPageContent webPageContent = new WebPageContent();
 			webPageContent.setUrl(urlTarget);

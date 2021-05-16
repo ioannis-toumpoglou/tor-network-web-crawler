@@ -68,12 +68,17 @@ public class WebPageContentController {
 	
 	@GetMapping("/showContent")
 	public String showContent(@RequestParam("torUrl") String url, Model model) {
-		// Get Web Page Content from the service
-		WebPageContent webPageContent = webPageContentService.findByUrl(url);
-		// Set Web Page Content as a model attribute to pre-populate the form
-		model.addAttribute("webPageContent", webPageContent);
-		// Send to the form		
-		return "web_page_content/web-page-content";
+		try {
+			// Get Web Page Content from the service
+			WebPageContent webPageContent = webPageContentService.findByUrl(url);
+			// Set Web Page Content as a model attribute to pre-populate the form
+			model.addAttribute("webPageContent", webPageContent);
+			// Send to the form		
+			return "web_page_content/web-page-content";
+		} catch (Exception e) {
+			model.addAttribute("url", url);
+			return "web_page_content/web-page-content-error";
+		}
 	}
 	
 	@GetMapping("/delete")
