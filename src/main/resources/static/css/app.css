@@ -94,6 +94,16 @@ a {
 	margin-bottom: 1em;
 }
 
+#error-image {
+	float: left;
+	margin-right: 20px;
+}
+
+#back-button {
+	margin-top: 50px;
+	margin-left: 65px;
+}
+
 hr {
 	width: 1050px;
 	margin-right:1em;
