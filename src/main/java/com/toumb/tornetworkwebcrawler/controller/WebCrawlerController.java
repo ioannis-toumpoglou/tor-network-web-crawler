@@ -109,6 +109,10 @@ public class WebCrawlerController {
 			
 			List<String> hrefLinks = retrieveHrefLinks(urlTarget);
 			
+			for (String link : hrefLinks) {
+				System.out.println(link);
+			}
+			
 			if (urlPageNo == null) {
 				urlPageNo = 0;
 			} else {
@@ -250,6 +254,9 @@ public class WebCrawlerController {
 			String formattedLink = link.attr("href");
 			if (formattedLink.contains("http")) {
 				hrefLinks.add(formattedLink);
+			} else if (!formattedLink.contains("www")) {
+				String tempLink = urlTarget + formattedLink;
+				hrefLinks.add(tempLink);
 			}
 		}
 		
