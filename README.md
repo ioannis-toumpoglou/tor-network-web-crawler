@@ -9,5 +9,5 @@ In order to create this user, the following commands should be executed:
 <br><br>
 
 For the application to connect to the Tor Network, it is necessary to have the <b>Tor browser</b> 
-oprn at the same time.<br>
+open at the same time.<br>
 To download the Tor browser, please use this <a href="https://www.torproject.org/download/">link</a>.
