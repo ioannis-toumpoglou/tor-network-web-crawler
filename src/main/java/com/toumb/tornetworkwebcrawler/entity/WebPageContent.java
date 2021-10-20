@@ -1,13 +1,10 @@
 package com.toumb.tornetworkwebcrawler.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -26,9 +23,8 @@ public class WebPageContent {
 	@Column(name="url")
 	private String url;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "threat_type_id", referencedColumnName = "id")
-	private ThreatType threatType;
+	@Column(name = "threat_type")
+	private String threatType;
 	
 	@Column(name="html_code")
 	private String htmlCode;
@@ -38,7 +34,7 @@ public class WebPageContent {
 	
 	public WebPageContent() {}
 
-	public WebPageContent(int id, String url, ThreatType threatType, String htmlCode, String text) {
+	public WebPageContent(int id, String url, String threatType, String htmlCode, String text) {
 		this.id = id;
 		this.url = url;
 		this.threatType = threatType;
