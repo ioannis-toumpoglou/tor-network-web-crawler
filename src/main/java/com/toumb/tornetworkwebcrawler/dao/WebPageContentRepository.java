@@ -18,7 +18,7 @@ public interface WebPageContentRepository extends JpaRepository<WebPageContent, 
 
 	public void deleteByUrl(String url);
 	
-	@Query("FROM WebPageContent WHERE LOWER(url) LIKE %?1% OR LOWER(text) LIKE %?1%")
+	@Query("FROM WebPageContent WHERE LOWER(url) LIKE %?1% OR LOWER(text) LIKE %?1% OR LOWER(threat_type) LIKE %?1%")
 	public List<WebPageContent> findByKeyword(String keyword);
 
 }
