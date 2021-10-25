@@ -1,6 +1,8 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import KMeans
 import string
+import sys
+import os
 
 import crawler_backend
 
@@ -12,21 +14,22 @@ def keywords_in_text(keywords, text):
     
     return set(keywords).intersection(text.split())
 
+
 def KMeansClassifier(text):
     ## Cyber attacks are divided in eight categories
     ## Marketplaces is a point of interest
     
     ## Data collected per category from files
-    malware = open('Cyber Threats/malware.txt', 'r').read()
-    phishing = open('Cyber Threats/phishing.txt', 'r').read()
-    MITM = open('Cyber Threats/MITM.txt', 'r').read()
-    DoS = open('Cyber Threats/DoS.txt', 'r').read()
-    SQL_injection = open('Cyber Threats/SQL_injection.txt', 'r').read()
-    zero_day = open('Cyber Threats/zero_day.txt', 'r').read()
-    XSS = open('Cyber Threats/XSS.txt', 'r').read()
-    credential_reuse = open('Cyber Threats/credential_reuse.txt', 'r').read()
-    carding = open('Cyber Threats/carding.txt', 'r').read()
-    marketplace = open('Cyber Threats/marketplace.txt', 'r').read()
+    malware = open('src\\main\\resources\\static\\cyber_threats\\malware.txt', 'r').read()
+    phishing = open('src\\main\\resources\\static\\cyber_threats\\phishing.txt', 'r').read()
+    MITM = open('src\\main\\resources\\static\\cyber_threats\\MITM.txt', 'r').read()
+    DoS = open('src\\main\\resources\\static\\cyber_threats\\DoS.txt', 'r').read()
+    SQL_injection = open('src\\main\\resources\\static\\cyber_threats\\SQL_injection.txt', 'r').read()
+    zero_day = open('src\\main\\resources\\static\\cyber_threats\\zero_day.txt', 'r').read()
+    XSS = open('src\\main\\resources\\static\\cyber_threats\\XSS.txt', 'r').read()
+    credential_reuse = open('src\\main\\resources\\static\\cyber_threats\\credential_reuse.txt', 'r').read()
+    carding = open('src\\main\\resources\\static\\cyber_threats\\carding.txt', 'r').read()
+    marketplace = open('src\\main\\resources\\static\\cyber_threats\\/marketplace.txt', 'r').read()
 
     ## Unify all texts
     document = [malware, phishing, MITM, DoS, SQL_injection, zero_day, XSS, credential_reuse, carding, marketplace]
@@ -41,7 +44,7 @@ def KMeansClassifier(text):
     model.fit(X)
 
     order_centroids = model.cluster_centers_.argsort()[:, ::-1]
-    terms = vectorizer.get_feature_names()
+    terms = vectorizer.get_feature_names_out()
 
     # Create a list of the 15 most common words for each category
     marketplace = list()
@@ -91,7 +94,7 @@ def KMeansClassifier(text):
     elif len(keywords_in_text(phishing, text))>2:
         return "Phishing"
     elif len(keywords_in_text(MITM, text))>2:
-        return "Man-in-the-middle"
+        return "MITM"
     elif len(keywords_in_text(DoS, text))>2:
         return "DoS"
     elif len(keywords_in_text(SQL_injection, text))>2:
@@ -110,17 +113,22 @@ def KMeansClassifier(text):
         return "Undefined"
 
 
-records = crawler_backend.page_content()
-count = 0
+def classify_record(url):
+    try:
+        record = crawler_backend.get_record(url)
+        threat_type = record[2]
+        if threat_type is not None:
+            print("The record has already been classified")
+        else:
+            url = record[1]
+            text = record[4]
+            threat_type = KMeansClassifier(text)
+            crawler_backend.insert_threat_type(url, threat_type)
+            print("Record classified successfully!")
+    except:
+        print("The record cannot be found in the database")
 
-for record in records:
-    url = record[1]
-    threat_type = record[2]
-    text = record[4]
-    threat_type = KMeansClassifier(text)
-    crawler_backend.insert_threat_type(url, threat_type)
-    count += 1
 
-print('Text classification completed!')
-print('Number of records classified: ', count)
-print()
+if __name__ == "__main__":
+    classify_record(sys.argv[1])
+
