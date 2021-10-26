@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javax.script.ScriptException;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -41,13 +43,14 @@ public class WebCrawlerController {
 	}
 	
 	@PostMapping("/crawl-url")
-	public String crawlUrl(@ModelAttribute("torUrl") TorNetworkUrl torUrl, Integer urlPageNo, boolean overwritePage, BindingResult result, RedirectAttributes redirectAttributes) throws IOException {
+	public String crawlUrl(@ModelAttribute("torUrl") TorNetworkUrl torUrl, Integer urlPageNo, boolean overwritePage, BindingResult result, RedirectAttributes redirectAttributes) throws IOException, ScriptException {
 		boolean isDuplicate = false;
 		boolean isNotValid = false;
 		boolean isOffline = false;
 
+		String urlTarget = getFullUrl(torUrl.getUrl());
+		
 		try {
-			String urlTarget = getFullUrl(torUrl.getUrl());
 			List<TorNetworkUrl> torUrls = torNetworkUrlService.findAll();
 			List<String> urlList = new ArrayList<>();
 			
@@ -108,10 +111,7 @@ public class WebCrawlerController {
 			webPageContentService.save(webPageContent);
 			
 			List<String> hrefLinks = retrieveHrefLinks(urlTarget);
-			
-			for (String link : hrefLinks) {
-				System.out.println(link);
-			}
+			LOG.info("There are " + hrefLinks.size() + " links in this website");
 			
 			if (urlPageNo == null) {
 				urlPageNo = 0;
@@ -163,6 +163,9 @@ public class WebCrawlerController {
 				LOG.info("Please try again");
 				return "redirect:/tor-urls/list";
 			}
+		} finally {
+			Process process = Runtime.getRuntime().exec(new String[]{"python", "src/main/resources/static/python_scripts/KMeans_classifier.py", urlTarget});
+			LOG.info(process.toString());
 		}
 	}
 	
