@@ -166,6 +166,11 @@ public class WebCrawlerController {
 		} finally {
 			Process process = Runtime.getRuntime().exec(new String[]{"python", "src/main/resources/static/python_scripts/KMeans_classifier.py", urlTarget});
 			LOG.info(process.toString());
+			ProcessBuilder processBuilder = new ProcessBuilder("src/main/resources/static/backup_db.bat");
+			processBuilder.start();
+			LOG.info(processBuilder.toString());
+			LOG.info("Database backup completed successfully");
+
 		}
 	}
 	
