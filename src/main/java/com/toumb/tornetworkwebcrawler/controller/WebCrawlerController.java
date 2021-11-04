@@ -68,8 +68,8 @@ public class WebCrawlerController {
 				}
 			}
 			
-			HttpURLConnection conn = establishConnectionToWebPage(urlTarget);
 			connectToTorNetwork();
+			HttpURLConnection conn = establishConnectionToWebPage(urlTarget);
 			
 			String webPageStatus = webPageStatus(conn);
 			
@@ -143,33 +143,34 @@ public class WebCrawlerController {
 					}
 				}
 			}
-			LOG.info("\nCrawl completed successfully\n");
+			LOG.info("[+] Crawl completed successfully");
 			return "redirect:/tor-urls/list";
 		} catch (Exception e) {
 			if (!torUrl.getUrl().contains(".onion")) {
 				isNotValid = true;
 				redirectAttributes.addFlashAttribute("isNotValid", isNotValid);
-				LOG.info("The URL format is not correct");
-				LOG.info("\nError retrieving the web page..");
-				LOG.info("Please try again");
+				LOG.info("[-] The URL format is not correct");
+				LOG.info("[-] Error retrieving the web page..");
+				LOG.info("[-] Please try again");
 				return "redirect:/tor-urls/list";				
 			} else {
 				isOffline = true;
 				redirectAttributes.addFlashAttribute("isOffline", isOffline);
-				LOG.info("Web Page offline");
+				LOG.info("[-] Web Page offline");
 				torUrl.setStatus("Offline");
 				torNetworkUrlService.save(torUrl);
-				LOG.info("Error retrieving the web page..");
-				LOG.info("Please try again");
+				LOG.info("[-] Error retrieving the web page..");
+				LOG.info("[-] Please try again");
 				return "redirect:/tor-urls/list";
 			}
 		} finally {
 			Process process = Runtime.getRuntime().exec(new String[]{"python", "src/main/resources/static/python_scripts/KMeans_classifier.py", urlTarget});
 			LOG.info(process.toString());
+			LOG.info("[+] Webpage successfully classified");
 			ProcessBuilder processBuilder = new ProcessBuilder("src/main/resources/static/backup_db.bat");
 			processBuilder.start();
 			LOG.info(processBuilder.toString());
-			LOG.info("Database backup completed successfully");
+			LOG.info("[+] Database backup completed successfully");
 
 		}
 	}
@@ -228,7 +229,7 @@ public class WebCrawlerController {
 			htmlSourceCode += inputLine;
 		}
 		
-		LOG.info("\nWebpage HTML code successfully retrieved");
+		LOG.info("[+] Webpage HTML code successfully retrieved");
 		
 		return htmlSourceCode;
 	}
@@ -248,7 +249,7 @@ public class WebCrawlerController {
 			webPageText += text;
 		}
 		
-		LOG.info("\nWebpage text extraction successfully completed");
+		LOG.info("[+] Webpage text extraction successfully completed");
 	    
 	    return webPageText;
 	}
@@ -268,7 +269,7 @@ public class WebCrawlerController {
 			}
 		}
 		
-		LOG.info("\nWebpage links extraction successfully completed");
+		LOG.info("[+] Webpage links extraction completed successfully");
 		
 		return hrefLinks;
 	}
