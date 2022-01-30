@@ -1,7 +1,6 @@
 # Tor-network-web-crawler
 
-This is a Java version of the application that was developed for my Master's degree thesis in 2019
-<a href="https://github.com/ioannis-toumpoglou/tor-web-crawler">tor-web-crawler</a>.
+This is a Java version of the <a href="https://github.com/ioannis-toumpoglou/tor-web-crawler">application</a> that was developed for my Master's degree thesis in 2019.
 
 
 It is used for crawling webpages that belong to the Tor network, also known as hidden services. 
