@@ -24,3 +24,10 @@ An unsupervised machine learing algorithm is used in order to classify the extra
 The machine learning algorithm used is <b>K-Means</b>.
 
 <p>The user has the option to crawl a single webpage by typing the URL of that page in the field at the top of the page. The option to crawl multiple pages is also provided, simply by typing the URL and the number of pages desired. In this case, the crawler uses the URL as a seed, extracts the URLs included in this page and randomly selects, crawls and collects the data from pages until the number defined has been reached.
+<br><br>
+<div align="center">
+	<img src="src/main/resources/static/images/01.Url_and_page_number.jpg" width="650" />
+	<br><br>
+	<b>Image 1 - URL address bar and page number</b>
+</div>
+<br><br>
