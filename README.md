@@ -31,11 +31,22 @@ The machine learning algorithm used is <b>K-Means</b>.
 	<b>Image 1 - URL address bar and page number</b>
 </div>
 <br><br>
-<p>There is also a search bar on the top right of the screen, in order to search among crawled pages using keywords.
+<p>The search bar on the top right of the screen is used to search among crawled pages using keywords.
 <br><br>
 <div align="center">
 	<img src="src/main/resources/static/images/02.Search_bar.jpg" width="650" />
 	<br><br>
 	<b>Image 2 - Search bar</b>
+</div>
+<br><br>
+<p>On the left side of the screen there are three options, which offer the capability to move around in the application. 
+<li>The <b>Tor URL List</b> of the web pages that have been crawled. 
+<li>The <b>Web Page Content</b> page, where one may find the extracted text of these pages. 
+<li>The <b>Cyber Threat Info</b>, where the user may manually store information about Cyber Threats.
+<br><br>
+<div align="center">
+	<img src="src/main/resources/static/images/03.Page_navigation.jpg" width="650" />
+	<br><br>
+	<b>Image 3 - Navigation options</b>
 </div>
 <br><br>
