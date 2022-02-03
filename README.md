@@ -31,3 +31,11 @@ The machine learning algorithm used is <b>K-Means</b>.
 	<b>Image 1 - URL address bar and page number</b>
 </div>
 <br><br>
+<p>There is also a search bar on the top right of the screen, in order to search among crawled pages using keywords.
+<br><br>
+<div align="center">
+	<img src="src/main/resources/static/images/02.Search_bar.jpg" width="650" />
+	<br><br>
+	<b>Image 2 - Search bar</b>
+</div>
+<br><br>
