@@ -50,3 +50,11 @@ The machine learning algorithm used is <b>K-Means</b>.
 	<b>Image 3 - Navigation options</b>
 </div>
 <br><br>
+<p>The main page includes the <b>Tor URL List</b>, the list of the web pages that have been crawled. The list contains the full URL, the status of the web page at the time it was crawled, meaning whether it was active or inactive and a set of managing options (open, edit and delete). Because of the hidden nature of the Tor network, it is very usual for pages to have a short lifespan and to be inactive after a while.
+<br><br>
+<div align="center">
+	<img src="src/main/resources/static/images/04.Web_page_list.jpg" width="650" />
+	<br><br>
+	<b>Image 4 - Tor URL List</b>
+</div>
+<br><br>
