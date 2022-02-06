@@ -58,3 +58,11 @@ The machine learning algorithm used is <b>K-Means</b>.
 	<b>Image 4 - Tor URL List</b>
 </div>
 <br><br>
+<p>By selecting the <b>Edit</b> option next to a URL, the user has access to that specific page's details, meaning the URL, the page status and the extracted text. With the button at the bottom of the page the user returns to the main page.
+<br><br>
+<div align="center">
+	<img src="src/main/resources/static/images/05.Web_page_edit.jpg" width="650" />
+	<br><br>
+	<b>Image 5 - Web page edit</b>
+</div>
+<br><br>
