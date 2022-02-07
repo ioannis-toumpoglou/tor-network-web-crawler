@@ -66,3 +66,11 @@ The machine learning algorithm used is <b>K-Means</b>.
 	<b>Image 5 - Web page edit</b>
 </div>
 <br><br>
+<p>By selecting the <b>Delete</b> option, the user is able to remove the specific page from the list. A dialog box appears to confirm the deletion.
+<br><br>
+<div align="center">
+	<img src="src/main/resources/static/images/06.Web_page_delete.jpg" width="650" />
+	<br><br>
+	<b>Image 6 - Web page delete</b>
+</div>
+<br><br>
