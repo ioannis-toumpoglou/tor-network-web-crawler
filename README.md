@@ -74,3 +74,11 @@ The machine learning algorithm used is <b>K-Means</b>.
 	<b>Image 6 - Web page delete</b>
 </div>
 <br><br>
+<p>The second part of the application is the <b>Web Page Content</b> page, which is related to the content of the pages that have been crawled. In the web page list, one can find the <b>URL</b>, the <b>cyber-threat type</b> and the <b>text</b> of each page. In the last column, there are the options of <b>Update</b> and <b>Delete</b>, the first one for the update or modification of the previous information and the second one for the deletion of the page.
+<br><br>
+<div align="center">
+	<img src="src/main/resources/static/images/07.Web_page_content.jpg" width="650" />
+	<br><br>
+	<b>Image 7 - Web page Content</b>
+</div>
+<br><br>
