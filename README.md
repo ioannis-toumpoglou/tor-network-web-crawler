@@ -1,4 +1,6 @@
-# Tor-network-web-crawler
+## Tor-network-web-crawler
+
+## Information
 
 This is a Java version of the <a href="https://github.com/ioannis-toumpoglou/tor-web-crawler">application</a> that was developed for my Master's degree thesis in 2019.
 
@@ -22,6 +24,9 @@ To download the Tor browser, please use this <a href="https://www.torproject.org
 An unsupervised machine learing algorithm is used in order to classify the extracted text, based on the cyber-threat type it refers to. It is implemented in Python and the script is called and executed via the Spring Boot main app, right after the page's text is stored in the database.
 
 The machine learning algorithm used is <b>K-Means</b>.
+
+
+## Description
 
 <p>The user has the option to crawl a single webpage by typing the URL of that page in the field at the top of the page. The option to crawl multiple pages is also provided, simply by typing the URL and the number of pages desired. In this case, the crawler uses the URL as a seed, extracts the URLs included in this page and randomly selects, crawls and collects the data from pages until the number defined has been reached.
 <br><br>
@@ -80,5 +85,19 @@ The machine learning algorithm used is <b>K-Means</b>.
 	<img src="src/main/resources/static/images/07.Web_page_content.jpg" width="650" />
 	<br><br>
 	<b>Image 7 - Web page Content</b>
+</div>
+<br><br>
+<p>In the last column, there are the options of <b>Update</b> and <b>Delete</b>, the first one for the update or modification of the previous information and the second one for the deletion of the page.
+<br><br>
+<div align="center">
+	<img src="src/main/resources/static/images/08.Web_page_content_edit.jpg" width="650" />
+	<br><br>
+	<b>Image 8 - Web page Content edit</b>
+</div>
+<br><br>
+<div align="center">
+	<img src="src/main/resources/static/images/09.Web_page_content_delete.jpg" width="650" />
+	<br><br>
+	<b>Image 9 - Web page Content deletion</b>
 </div>
 <br><br>
