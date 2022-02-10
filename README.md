@@ -101,3 +101,11 @@ The machine learning algorithm used is <b>K-Means</b>.
 	<b>Image 9 - Web page Content deletion</b>
 </div>
 <br><br>
+<p>The third part of the application is the <b>Threat Type Info</b> which works as a custom information library, created by the user. It offers the capability to store information, like the descriptions of the various types of cyber threats.
+<br><br>
+<div align="center">
+	<img src="src/main/resources/static/images/10.Threat_type_list.jpg" width="650" />
+	<br><br>
+	<b>Image 10 - Threat Type list</b>
+</div>
+<br><br>
