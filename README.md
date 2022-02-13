@@ -109,11 +109,19 @@ The machine learning algorithm used is <b>K-Means</b>.
 	<b>Image 10 - Threat Type list</b>
 </div>
 <br><br>
-<p>On the top left of the screen there is a button which is used to create a new record in the Threat Type list.
+<p>At the top left of the screen there is a button, which is used to create a new record in the Threat Type list.
 <br><br>
 <div align="center">
 	<img src="src/main/resources/static/images/11.Threat_type_add.jpg" width="650" />
 	<br><br>
 	<b>Image 11 - Threat Type add</b>
+</div>
+<br><br>
+<p>At the top right of the screen there is a search bar, which is used to search among the records using keywords.
+<br><br>
+<div align="center">
+	<img src="src/main/resources/static/images/12.Threat_type_search.jpg" width="650" />
+	<br><br>
+	<b>Image 12 - Threat Type search</b>
 </div>
 <br><br>
