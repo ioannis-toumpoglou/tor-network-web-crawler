@@ -125,3 +125,11 @@ The machine learning algorithm used is <b>K-Means</b>.
 	<b>Image 12 - Threat Type search</b>
 </div>
 <br><br>
+<p>In the last column, there are the options of <b>Update</b> and <b>Delete</b>, the first one for the update or modification of the Threat Type information stored and the second one for the deletion of the record. By selecting the update option, the user is transferred to the following screen. The attributes that may be updated are the Threat Type title given to the entry and the description.
+<br><br>
+<div align="center">
+	<img src="src/main/resources/static/images/13.Threat_type_update.jpg" width="650" />
+	<br><br>
+	<b>Image 13 - Threat Type update</b>
+</div>
+<br><br>
