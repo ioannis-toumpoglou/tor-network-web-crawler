@@ -98,7 +98,7 @@ The machine learning algorithm used is <b>K-Means</b>.
 <div align="center">
 	<img src="src/main/resources/static/images/09.Web_page_content_delete.jpg" width="650" />
 	<br><br>
-	<b>Image 9 - Web page Content deletion</b>
+	<b>Image 9 - Web page Content delete</b>
 </div>
 <br><br>
 <p>The third part of the application is the <b>Threat Type Info</b> which works as a custom information library, created by the user. It offers the capability to store information, like the descriptions of the various types of cyber threats.
@@ -125,11 +125,18 @@ The machine learning algorithm used is <b>K-Means</b>.
 	<b>Image 12 - Threat Type search</b>
 </div>
 <br><br>
-<p>In the last column, there are the options of <b>Update</b> and <b>Delete</b>, the first one for the update or modification of the Threat Type information stored and the second one for the deletion of the record. By selecting the update option, the user is transferred to the following screen. The attributes that may be updated are the Threat Type title given to the entry and the description.
+<p>In the last column, there are two options which are used to handle the Threat Type records. The first one is the <b>Update</b> option and it is used for the update or modification of the Threat Type information stored. By selecting the specific option, the user is transferred to the following screen. The attributes that may be updated are the Threat Type title given to the entry and the description.
 <br><br>
 <div align="center">
 	<img src="src/main/resources/static/images/13.Threat_type_update.jpg" width="650" />
 	<br><br>
 	<b>Image 13 - Threat Type update</b>
+</div>
+<br><br>
+<p>Finally, the second option is the <b>Delete</b> option and it is used for the deletion of the record. A dialog box appears in order to do a final confirmation of the record's removal.
+<div align="center">
+	<img src="src/main/resources/static/images/14.Threat_type_delete.jpg" width="650" />
+	<br><br>
+	<b>Image 14 - Threat Type delete</b>
 </div>
 <br><br>
