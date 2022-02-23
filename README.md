@@ -8,8 +8,8 @@ This is a Java version of the <a href="https://github.com/ioannis-toumpoglou/tor
 It is a web crawler capable of collecting data from webpages that belong to the Tor network, also known as hidden services. 
 Both the entire HTML code and the extracted text of each page are stored in an SQL database for further processing. 
 
-The application uses MySQL database in the backend and a user named **dbuser** is required.<br>
-In order to create this user, the following commands should be executed, using either **MySQL Workbench**
+The application uses <a href="https://dev.mysql.com/downloads/installer/">MySQL database</a> in the backend and a user named **dbuser** is required.<br>
+In order to create this user, the following commands should be executed, using either <a href="https://dev.mysql.com/downloads/workbench/">MySQL Workbench</a>
 or **MySQL shell**:
 
 1. CREATE USER 'dbuser'@'localhost' IDENTIFIED BY 'dbuser';
