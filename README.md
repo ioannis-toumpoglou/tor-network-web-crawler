@@ -1,6 +1,6 @@
 ## Tor-network-web-crawler
 
-## Information
+## General Information
 
 This is a Java version of the <a href="https://github.com/ioannis-toumpoglou/tor-web-crawler">application</a> that was developed for my Master's degree thesis in 2019.
 
@@ -25,6 +25,17 @@ An unsupervised machine learing algorithm is used in order to classify the extra
 
 The machine learning algorithm used is <b>K-Means</b>.
 
+
+## Technical Information
+<li>Java
+<li>Python 3
+<li>Spring Boot
+<li>Spring MVC
+<li>Spring Data JPA
+<li>Spring REST
+<li>Thymeleaf
+<li>Liquibase
+<li>MySQL
 
 ## Description
 
